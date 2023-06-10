@@ -54,9 +54,9 @@ namespace Car_Rental
 
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Form form = new Register();
-            //this.Hide();
-            //form.ShowDialog();
+            Form form = new Register();
+            this.Hide();
+            form.ShowDialog();
         }
     }
 }
