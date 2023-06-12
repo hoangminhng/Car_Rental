@@ -1,11 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
-namespace LibraryRepo.Models
+namespace LibraryRepo.ModelsCar
 {
     public partial class CarRentalContext : DbContext
     {
@@ -31,17 +30,8 @@ namespace LibraryRepo.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer(GetConnectionString());
+                optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=CarRental;TrustServerCertificate=True");
             }
-        }
-        private string GetConnectionString()
-        {
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
-                .Build();
-            var strConn = config["ConnectionStrings:BankAccountTypeDB"];
-            return strConn;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,10 +42,12 @@ namespace LibraryRepo.Models
             {
                 entity.ToTable("Account");
 
-                entity.HasIndex(e => e.Email, "UQ__Account__A9D105345C4BBC25")
+                entity.HasIndex(e => e.Email, "UQ__Account__A9D10534A9B4AE59")
                     .IsUnique();
 
-                entity.Property(e => e.AccountId).HasColumnName("Account_ID");
+                entity.Property(e => e.AccountId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("Account_ID");
 
                 entity.Property(e => e.Address).HasMaxLength(100);
 
@@ -69,12 +61,11 @@ namespace LibraryRepo.Models
                     .HasMaxLength(11)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserId).HasColumnName("User_ID");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Accounts)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Account__User_ID__4E88ABD4");
+                entity.HasOne(d => d.AccountNavigation)
+                    .WithOne(p => p.Account)
+                    .HasForeignKey<Account>(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Account__Account__4E88ABD4");
             });
 
             modelBuilder.Entity<Brand>(entity =>
@@ -136,8 +127,6 @@ namespace LibraryRepo.Models
 
                 entity.Property(e => e.AccountId).HasColumnName("Account_ID");
 
-                entity.Property(e => e.RentalDetailId).HasColumnName("RentalDetail_ID");
-
                 entity.Property(e => e.TotalPrice)
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("Total_price");
@@ -145,12 +134,13 @@ namespace LibraryRepo.Models
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK__Payment__Account__5EBF139D");
+                    .HasConstraintName("FK__Payment__Account__5DCAEF64");
 
-                entity.HasOne(d => d.RentalDetail)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.RentalDetailId)
-                    .HasConstraintName("FK__Payment__RentalD__5DCAEF64");
+                entity.HasOne(d => d.PaymentNavigation)
+                    .WithOne(p => p.Payment)
+                    .HasForeignKey<Payment>(d => d.PaymentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Payment__Payment__5FB337D6");
             });
 
             modelBuilder.Entity<Rental>(entity =>
@@ -202,9 +192,12 @@ namespace LibraryRepo.Models
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasKey(e => e.AccountId)
+                    .HasName("PK__User__B19E45C99836ECF6");
+
                 entity.ToTable("User");
 
-                entity.Property(e => e.UserId).HasColumnName("User_ID");
+                entity.Property(e => e.AccountId).HasColumnName("Account_ID");
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryRepo.Repo
 {
-    public class UserRepo: RepoBase<User>
+    internal class PaymentRepo:RepoBase<Payment>
     {
     }
 }
