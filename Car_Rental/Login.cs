@@ -24,31 +24,44 @@ namespace Car_Rental
         {
             try
             {
-                var users = userRepo.getAll();
-                var user = users.First(x => x.Username == txtUsername.Text);
-                if (user.Role == 0)
+                if (String.IsNullOrEmpty(txtPassword.Text) && String.IsNullOrEmpty(txtUsername.Text))
                 {
-                    this.Hide();
-                    Form adminForm = new Admin();
-                    adminForm.ShowDialog();
-                }
-                else if (user.Role == 1)
-                {
-                    this.Hide();
-                    Form customerForm = new Customer();
-                    customerForm.ShowDialog();
+                    MessageBox.Show("Username and password can not empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    this.Hide();
-                    Form ownerForm = new Owner();
-                    ownerForm.ShowDialog();
+                    var users = userRepo.getAll();
+                    var user = users.First(x => x.Username == txtUsername.Text);
+                    if (txtPassword.Text == user.Password)
+                    {
+                        if (user.Role == 0)
+                        {
+                            this.Hide();
+                            Form adminForm = new Admin();
+                            adminForm.ShowDialog();
+                        }
+                        else if (user.Role == 1)
+                        {
+                            this.Hide();
+                            Form customerForm = new Customer();
+                            customerForm.ShowDialog();
+                        }
+                        else
+                        {
+                            this.Hide();
+                            Form ownerForm = new Owner();
+                            ownerForm.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             catch (Exception)
             {
-
-                throw;
+                MessageBox.Show("User not exist in system", "Error", MessageBoxButtons.OK);
             }
         }
 
@@ -57,6 +70,11 @@ namespace Car_Rental
             Form form = new Register();
             this.Hide();
             form.ShowDialog();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

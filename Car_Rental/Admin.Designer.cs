@@ -43,19 +43,19 @@
             panel1.Controls.Add(btnMngUser);
             panel1.Controls.Add(btnMngRental);
             panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
             panel1.RightToLeft = RightToLeft.No;
-            panel1.Size = new Size(256, 556);
+            panel1.Size = new Size(215, 564);
             panel1.TabIndex = 3;
             // 
             // btnMngUser
             // 
-            btnMngUser.Location = new Point(12, 13);
-            btnMngUser.Margin = new Padding(3, 4, 3, 4);
+            btnMngUser.Location = new Point(10, 10);
             btnMngUser.Name = "btnMngUser";
-            btnMngUser.Size = new Size(229, 85);
+            btnMngUser.Size = new Size(200, 64);
             btnMngUser.TabIndex = 2;
             btnMngUser.Text = "Manage User";
             btnMngUser.UseVisualStyleBackColor = true;
@@ -63,10 +63,9 @@
             // 
             // btnMngRental
             // 
-            btnMngRental.Location = new Point(14, 121);
-            btnMngRental.Margin = new Padding(3, 4, 3, 4);
+            btnMngRental.Location = new Point(12, 91);
             btnMngRental.Name = "btnMngRental";
-            btnMngRental.Size = new Size(229, 85);
+            btnMngRental.Size = new Size(200, 64);
             btnMngRental.TabIndex = 1;
             btnMngRental.Text = "Manage Rental";
             btnMngRental.UseVisualStyleBackColor = true;
@@ -74,27 +73,27 @@
             // 
             // panel2
             // 
-            panel2.Location = new Point(3, 4);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(0, 0);
             panel2.TabIndex = 0;
             // 
             // pnlShow
             // 
-            pnlShow.Location = new Point(259, 0);
-            pnlShow.Margin = new Padding(3, 4, 3, 4);
+            pnlShow.Dock = DockStyle.Right;
+            pnlShow.Location = new Point(218, 0);
             pnlShow.Name = "pnlShow";
-            pnlShow.Size = new Size(755, 556);
+            pnlShow.Size = new Size(799, 564);
             pnlShow.TabIndex = 4;
             // 
             // Admin
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1015, 556);
+            ClientSize = new Size(1017, 564);
             Controls.Add(panel1);
             Controls.Add(pnlShow);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Admin";
             Text = "Admin";
             panel1.ResumeLayout(false);
