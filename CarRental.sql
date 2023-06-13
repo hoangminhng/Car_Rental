@@ -1,4 +1,4 @@
-﻿CREATE DATABASE CarRental
+CREATE DATABASE CarRental
 USE CarRental
 
 CREATE TABLE [User]
@@ -71,4 +71,41 @@ CREATE TABLE Payment (
   FOREIGN KEY (Payment_ID) REFERENCES [RentalDetail](RentalDetail_ID)
 )
 
-INSERT INTO [dbo].[User](Username, Password, Role, Status) VALUES('admin', 123, 0, 0)
+INSERT INTO [dbo].[User](Username, Password, Role, Status) VALUES
+	('admin', 123, 0, 0),
+	('lessee', 123, 2, 0),
+	('renter', 123, 1, 0),
+	('lessee2', 123, 2, 0),
+	('renter2', 123, 1, 0)
+
+
+INSERT INTO [dbo].[Account] ([Account_ID], [Fullname], [Phone], [Email], [Address]) VALUES
+(1, 'Admin Khang', '0923123122', 'admin@gmail.com', 'Binh Chanh'),
+(2, 'Lessee 1', '012341234', 'lessee1@gmail.com', 'Quan 1'),
+(3, 'Renter 1', '012341233', 'renter1@gmail.com', 'Quan 2'),
+(4, 'Lessee 2', '012343134', 'lessee2@gmail.com', 'Quan 3'),
+(5, 'Renter 2', '012344333', 'renter2@gmail.com', 'Quan 4')
+
+INSERT INTO [dbo].[Brand] ([BrandName], [Logo]) VALUES
+('Toyota', ''),
+('Porsche', ''),
+('Madza', ''),
+('KIA', ''),
+('VinFast', ''),
+('Audi', ''),
+('Mercedes', '')
+
+INSERT INTO [dbo].[Car] ([Model], [BrandID], [Account_ID], [Type], [Images], [Seats],
+						[Transmission], [Fuel], [Consumption], [Describe], [Price], [Status])
+VALUES
+('Camry 2023', 1, 2, 'Sedan', '', 4, 'Automatic', 'Gasonline', 7, 'Toyota nhu ba gia', 123, 1),
+('C300 AMG', 7, 3, 'sedan', '', 4, 'Automatic', 'Gasonline', 9, 'Mercedes C300 AMG', 900, 1),
+('Macan', 2, 4, 'SUV', '', 7, 'Automatic', 'Gasonline', 8, '', 500, 1)
+
+INSERT INTO [dbo].[Rental] ([Account_ID], [Car_ID], [Status]) VALUES 
+(3, 1, 0),
+(5, 3, 0),
+(5, 2, 0)
+
+INSERT INTO [dbo].[RentalDetail] ([RentalDetail_ID], [PickupDate], [PickupTime], [PickupLocation], [DropOffDate], [DropOffTime], [DropOffLocation]) VALUES 
+(1, '2023-06-24', '06:30:00', 'Dictrict 1', '2023-06-26', '06:30:00', 'Dictrict 1')
