@@ -3,15 +3,10 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace LibraryRepo.ModelsCar
+namespace LibraryRepo.Cars
 {
     public partial class Rental
     {
-        public Rental()
-        {
-            RentalDetails = new HashSet<RentalDetail>();
-        }
-
         public int RentalId { get; set; }
         public int? AccountId { get; set; }
         public int? CarId { get; set; }
@@ -19,6 +14,6 @@ namespace LibraryRepo.ModelsCar
 
         public virtual Account Account { get; set; }
         public virtual Car Car { get; set; }
-        public virtual ICollection<RentalDetail> RentalDetails { get; set; }
+        public virtual RentalDetail RentalDetail { get; set; }
     }
 }

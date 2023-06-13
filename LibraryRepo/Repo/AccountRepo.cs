@@ -1,4 +1,4 @@
-﻿using LibraryRepo.ModelsCar;
+﻿using LibraryRepo.Cars;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryRepo.Repo
 {
-    internal class AccountRepo:RepoBase<Account>
+    public class AccountRepo:RepoBase<Account>
     {
     }
 }

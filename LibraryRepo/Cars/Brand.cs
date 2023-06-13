@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace LibraryRepo.ModelsCar
+namespace LibraryRepo.Cars
 {
     public partial class Brand
     {

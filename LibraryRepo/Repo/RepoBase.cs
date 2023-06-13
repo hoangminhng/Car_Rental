@@ -1,4 +1,4 @@
-﻿using LibraryRepo.ModelsCar;
+﻿using LibraryRepo.Cars;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,23 +11,23 @@ namespace LibraryRepo.Repo
     public class RepoBase<T> where T : class
     {
         CarRentalContext context;
-        DbSet<T> cars;
+        DbSet<T> _dbSet;
 
         public RepoBase()
         {
             context = new CarRentalContext();
-            cars = context.Set<T>();
+            _dbSet = context.Set<T>();
         }
 
         public List<T> getAll()
         {
-            return cars.ToList();
+            return _dbSet.ToList();
         }
         public bool Create(T entity)
         {
             try
             {
-                cars.Add(entity);
+                _dbSet.Add(entity);
                 context.SaveChanges();
                 return true;
             }
@@ -42,7 +42,7 @@ namespace LibraryRepo.Repo
         {
             try
             {
-                cars.Remove(entity);
+                _dbSet.Remove(entity);
                 context.SaveChanges();
                 return true;
             }

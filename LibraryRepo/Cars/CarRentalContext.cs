@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace LibraryRepo.ModelsCar
+namespace LibraryRepo.Cars
 {
     public partial class CarRentalContext : DbContext
     {
@@ -42,7 +42,7 @@ namespace LibraryRepo.ModelsCar
             {
                 entity.ToTable("Account");
 
-                entity.HasIndex(e => e.Email, "UQ__Account__A9D10534A9B4AE59")
+                entity.HasIndex(e => e.Email, "UQ__Account__A9D10534F58DB18E")
                     .IsUnique();
 
                 entity.Property(e => e.AccountId)
@@ -72,9 +72,7 @@ namespace LibraryRepo.ModelsCar
             {
                 entity.ToTable("Brand");
 
-                entity.Property(e => e.BrandId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("BrandID");
+                entity.Property(e => e.BrandId).HasColumnName("BrandID");
 
                 entity.Property(e => e.BrandName)
                     .HasMaxLength(50)
@@ -88,6 +86,8 @@ namespace LibraryRepo.ModelsCar
                 entity.ToTable("Car");
 
                 entity.Property(e => e.CarId).HasColumnName("Car_ID");
+
+                entity.Property(e => e.AccountId).HasColumnName("Account_ID");
 
                 entity.Property(e => e.BrandId).HasColumnName("BrandID");
 
@@ -103,6 +103,8 @@ namespace LibraryRepo.ModelsCar
 
                 entity.Property(e => e.Model).HasMaxLength(50);
 
+                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+
                 entity.Property(e => e.Transmission)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -111,9 +113,16 @@ namespace LibraryRepo.ModelsCar
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.Cars)
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Car__Account_ID__5441852A");
+
                 entity.HasOne(d => d.Brand)
                     .WithMany(p => p.Cars)
                     .HasForeignKey(d => d.BrandId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Car__BrandID__534D60F1");
             });
 
@@ -134,13 +143,13 @@ namespace LibraryRepo.ModelsCar
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK__Payment__Account__5DCAEF64");
+                    .HasConstraintName("FK__Payment__Account__5FB337D6");
 
                 entity.HasOne(d => d.PaymentNavigation)
                     .WithOne(p => p.Payment)
                     .HasForeignKey<Payment>(d => d.PaymentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Payment__Payment__5FB337D6");
+                    .HasConstraintName("FK__Payment__Payment__619B8048");
             });
 
             modelBuilder.Entity<Rental>(entity =>
@@ -156,19 +165,21 @@ namespace LibraryRepo.ModelsCar
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Rentals)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK__Rental__Account___5629CD9C");
+                    .HasConstraintName("FK__Rental__Account___5812160E");
 
                 entity.HasOne(d => d.Car)
                     .WithMany(p => p.Rentals)
                     .HasForeignKey(d => d.CarId)
-                    .HasConstraintName("FK__Rental__Car_ID__571DF1D5");
+                    .HasConstraintName("FK__Rental__Car_ID__59063A47");
             });
 
             modelBuilder.Entity<RentalDetail>(entity =>
             {
                 entity.ToTable("RentalDetail");
 
-                entity.Property(e => e.RentalDetailId).HasColumnName("RentalDetail_ID");
+                entity.Property(e => e.RentalDetailId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("RentalDetail_ID");
 
                 entity.Property(e => e.DropOffDate).HasColumnType("date");
 
@@ -182,18 +193,17 @@ namespace LibraryRepo.ModelsCar
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RentalId).HasColumnName("Rental_ID");
-
-                entity.HasOne(d => d.Rental)
-                    .WithMany(p => p.RentalDetails)
-                    .HasForeignKey(d => d.RentalId)
-                    .HasConstraintName("FK__RentalDet__Renta__5AEE82B9");
+                entity.HasOne(d => d.RentalDetailNavigation)
+                    .WithOne(p => p.RentalDetail)
+                    .HasForeignKey<RentalDetail>(d => d.RentalDetailId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RentalDet__Renta__5CD6CB2B");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.AccountId)
-                    .HasName("PK__User__B19E45C99836ECF6");
+                    .HasName("PK__User__B19E45C9BEB4719D");
 
                 entity.ToTable("User");
 

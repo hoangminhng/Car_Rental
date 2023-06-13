@@ -83,10 +83,14 @@ namespace Car_Rental
                 }
             }
         }
+        private void Owner_Load(object sender, EventArgs e)
+        {
+
+        }
         //CRUD thông tin cá nhân
         private void btnMngAccount_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new OwnerForm.Account(), sender);
+            ActiveButton(sender);
         }
         //xem các yêu cầu thuê xe của khách hàng đối với mình
         private void btnRequest_Click(object sender, EventArgs e)
@@ -96,22 +100,7 @@ namespace Car_Rental
         //CRUD car cho thuê của mình
         private void btnMngCar_Click(object sender, EventArgs e)
         {
-            ActiveButton(sender);
+            OpenChildForm(new OwnerForm.OwnerCarManagement(), sender);
         }
-        private void btnRentRequest_Click(object sender, EventArgs e)
-        {
-            ActiveButton(sender);
-        }
-
-        private void btnMngCar_Click_1(object sender, EventArgs e)
-        {
-            ActiveButton(sender);
-        }
-        private void Owner_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }
