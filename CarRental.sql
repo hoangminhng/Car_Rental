@@ -1,4 +1,6 @@
-CREATE DATABASE CarRental
+
+
+
 USE CarRental
 
 CREATE TABLE [User]
@@ -98,14 +100,14 @@ INSERT INTO [dbo].[Brand] ([BrandName], [Logo]) VALUES
 INSERT INTO [dbo].[Car] ([Model], [BrandID], [Account_ID], [Type], [Images], [Seats],
 						[Transmission], [Fuel], [Consumption], [Describe], [Price], [Status])
 VALUES
-('Camry 2023', 1, 2, 'Sedan', '', 4, 'Automatic', 'Gasonline', 7, 'Toyota nhu ba gia', 123, 1),
+('Camry 2023', 1, 3, 'Sedan', '', 4, 'Automatic', 'Gasonline', 7, 'Toyota nhu ba gia', 123, 1),
 ('C300 AMG', 7, 3, 'sedan', '', 4, 'Automatic', 'Gasonline', 9, 'Mercedes C300 AMG', 900, 1),
-('Macan', 2, 4, 'SUV', '', 7, 'Automatic', 'Gasonline', 8, '', 500, 1)
+('Macan', 2, 5, 'SUV', '', 7, 'Automatic', 'Gasonline', 8, 'SUV gi ma ki', 500, 1)
 
 INSERT INTO [dbo].[Rental] ([Account_ID], [Car_ID], [Status]) VALUES 
-(3, 1, 0),
-(5, 3, 0),
-(5, 2, 0)
+(2, 1, 0),
+(2, 3, 0),
+(4, 2, 0)
 
 INSERT INTO [dbo].[RentalDetail] ([RentalDetail_ID], [PickupDate], [PickupTime], [PickupLocation], [DropOffDate], [DropOffTime], [DropOffLocation]) VALUES 
 (1, '2023-06-24', '06:30:00', 'Dictrict 1', '2023-06-26', '06:30:00', 'Dictrict 1')
