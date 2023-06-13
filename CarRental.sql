@@ -1,4 +1,6 @@
-﻿CREATE DATABASE CarRental
+﻿
+
+CREATE DATABASE CarRental
 USE CarRental
 
 CREATE TABLE [User]

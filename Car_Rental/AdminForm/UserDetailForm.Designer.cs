@@ -43,6 +43,9 @@
             txtRole = new Label();
             txtStatus = new Label();
             btnStatus = new Button();
+            btnClose = new Button();
+            btnRental = new Button();
+            btnCar = new Button();
             SuspendLayout();
             // 
             // label1
@@ -180,11 +183,41 @@
             btnStatus.Text = "button1";
             btnStatus.UseVisualStyleBackColor = true;
             // 
+            // btnClose
+            // 
+            btnClose.Location = new Point(237, 350);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(75, 23);
+            btnClose.TabIndex = 15;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            // 
+            // btnRental
+            // 
+            btnRental.Location = new Point(112, 350);
+            btnRental.Name = "btnRental";
+            btnRental.Size = new Size(105, 23);
+            btnRental.TabIndex = 16;
+            btnRental.Text = "View Rental";
+            btnRental.UseVisualStyleBackColor = true;
+            // 
+            // btnCar
+            // 
+            btnCar.Location = new Point(13, 350);
+            btnCar.Name = "btnCar";
+            btnCar.Size = new Size(75, 23);
+            btnCar.TabIndex = 17;
+            btnCar.Text = "View Car";
+            btnCar.UseVisualStyleBackColor = true;
+            // 
             // UserDetailForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(324, 450);
+            Controls.Add(btnCar);
+            Controls.Add(btnRental);
+            Controls.Add(btnClose);
             Controls.Add(btnStatus);
             Controls.Add(txtStatus);
             Controls.Add(txtRole);
@@ -223,5 +256,8 @@
         private Label txtRole;
         private Label txtStatus;
         private Button btnStatus;
+        private Button btnClose;
+        private Button btnRental;
+        private Button btnCar;
     }
 }

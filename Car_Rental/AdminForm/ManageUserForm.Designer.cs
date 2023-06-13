@@ -34,25 +34,28 @@
             // 
             // dgvUser
             // 
-            dgvUser.AllowUserToAddRows = false;
             dgvUser.AllowUserToDeleteRows = false;
             dgvUser.AllowUserToOrderColumns = true;
             dgvUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUser.Location = new Point(-5, -2);
+            dgvUser.Location = new Point(-1, -1);
+            dgvUser.Margin = new Padding(3, 4, 3, 4);
             dgvUser.Name = "dgvUser";
             dgvUser.ReadOnly = true;
+            dgvUser.RowHeadersWidth = 51;
             dgvUser.RowTemplate.Height = 25;
-            dgvUser.Size = new Size(971, 234);
+            dgvUser.Size = new Size(1031, 312);
             dgvUser.TabIndex = 0;
             dgvUser.CellDoubleClick += dgvUser_CellDoubleClick;
             dgvUser.ColumnHeaderMouseClick += dgvUser_ColumnHeaderMouseClick;
+            dgvUser.EditingControlShowing += dgvUser_EditingControlShowing;
             // 
             // ManageUserForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(898, 450);
+            ClientSize = new Size(1026, 600);
             Controls.Add(dgvUser);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ManageUserForm";
             Text = "ManageUserForm";
             ((System.ComponentModel.ISupportInitialize)dgvUser).EndInit();

@@ -5,7 +5,7 @@ namespace Car_Rental.AdminForm
     public partial class ManageUserForm : Form
     {
         private bool sortAscending = false;
-        private List<DisplayData> _listDisplay;
+        private List<DisplayUser> _listDisplay;
         UserRepo _userRepo;
         AccountRepo _accountRepo;
 
@@ -17,7 +17,7 @@ namespace Car_Rental.AdminForm
             LoadList();
         }
 
-        public List<DisplayData> LoadList()
+        public List<DisplayUser> LoadList()
         {
             _userRepo = new UserRepo();
             _accountRepo = new AccountRepo();
@@ -27,7 +27,7 @@ namespace Car_Rental.AdminForm
 
             _listDisplay = (from account in _listAccount
                             join user in _listUser on account.AccountId equals user.AccountId
-                            select new DisplayData
+                            select new DisplayUser
                             {
                                 AccountId = account.AccountId,
                                 Username = user.Username,
@@ -77,11 +77,11 @@ namespace Car_Rental.AdminForm
                 DataGridViewRow clickedRow = dgvUser.Rows[e.RowIndex];
                 int accountId = Convert.ToInt32(clickedRow.Cells["AccountId"].Value);
 
-                DisplayData selectedData = _listDisplay.FirstOrDefault(data => data.AccountId == accountId);
+                DisplayUser selectedData = _listDisplay.FirstOrDefault(data => data.AccountId == accountId);
                 if (selectedData != null)
                 {
                     // Open new form and pass the selectedData to it
-                    UserDetailForm detailsForm = new UserDetailForm(selectedData);
+                    UserDetailForm detailsForm = new UserDetailForm(selectedData, GetRoleFromUserRole(selectedData.Role));
                     detailsForm.Show();
                 }
             }
@@ -114,8 +114,43 @@ namespace Car_Rental.AdminForm
                     return string.Empty;
             }
         }
+
+        private int? GetRoleFromUserRole(string userRole)
+        {
+            switch (userRole)
+            {
+                case "Admin":
+                    return 0;
+                case "Renter":
+                    return 1;
+                case "Lessee":
+                    return 2;
+                default:
+                    return null;
+            }
+        }
+
+        private int? GetStatusFromUserStatus(string userStatus)
+        {
+            switch (userStatus)
+            {
+                case "Active":
+                    return 0;
+                case "Inactive":
+                    return 1;
+                default:
+                    return null;
+            }
+        }
+
+        private void dgvUser_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            //Disable editting in all cell
+            e.Control.Enabled = false;
+        }
     }
-    public class DisplayData
+    public class DisplayUser
     {
         public int AccountId { get; set; }
         public string Username { get; set; }
