@@ -21,7 +21,7 @@ CREATE TABLE Account
 )
 
 CREATE TABLE Brand (
-  BrandID INT PRIMARY KEY,
+  BrandID INT IDENTITY(1,1) PRIMARY KEY,
   BrandName VARCHAR(50),
   Logo VARCHAR(MAX)
 )
@@ -30,7 +30,8 @@ CREATE TABLE Car
 (
 	Car_ID int IDENTITY(1,1) PRIMARY KEY,
 	Model nvarchar(50),
-	BrandID int FOREIGN KEY REFERENCES Brand(BrandID),
+	BrandID int FOREIGN KEY REFERENCES Brand(BrandID) NOT NULL,
+	Account_ID int FOREIGN KEY REFERENCES [User](Account_ID) NOT NULL,
 	Type varchar(50),
 	Images varchar(500),
 	Seats int,
@@ -38,7 +39,8 @@ CREATE TABLE Car
 	Fuel varchar(50),
 	Consumption int,
 	Describe nvarchar(100),
-	Price int
+	Price DECIMAL(10,2),
+	Status int CHECK (Status = 0 or Status = 1)
 )
 
 CREATE TABLE Rental
@@ -52,13 +54,13 @@ CREATE TABLE Rental
 CREATE TABLE RentalDetail
 (
 	RentalDetail_ID int IDENTITY(1,1) PRIMARY KEY,
-	Rental_ID int FOREIGN KEY REFERENCES Rental(Rental_ID),
 	PickupDate DATE,
 	PickupTime TIME,
 	PickupLocation VARCHAR(100),
 	DropOffDate DATE,
 	DropOffTime TIME,
 	DropOffLocation VARCHAR(100),
+	FOREIGN KEY (RentalDetail_ID) REFERENCES Rental(Rental_ID)
 )
 
 CREATE TABLE Payment (
