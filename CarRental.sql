@@ -53,7 +53,7 @@ CREATE TABLE Rental
 
 CREATE TABLE RentalDetail
 (
-	RentalDetail_ID int IDENTITY(1,1) PRIMARY KEY,
+	RentalDetail_ID int PRIMARY KEY,
 	PickupDate DATE,
 	PickupTime TIME,
 	PickupLocation VARCHAR(100),
