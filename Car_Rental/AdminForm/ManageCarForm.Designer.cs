@@ -38,19 +38,24 @@
             dgvCar.AllowUserToOrderColumns = true;
             dgvCar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCar.Location = new Point(0, 0);
+            dgvCar.Margin = new Padding(3, 2, 3, 2);
             dgvCar.Name = "dgvCar";
             dgvCar.ReadOnly = true;
             dgvCar.RowHeadersWidth = 51;
             dgvCar.RowTemplate.Height = 29;
-            dgvCar.Size = new Size(922, 188);
+            dgvCar.Size = new Size(807, 180);
             dgvCar.TabIndex = 0;
+            dgvCar.CellDoubleClick += dgvCar_CellDoubleClick;
+            dgvCar.ColumnHeaderMouseClick += dgvCar_ColumnHeaderMouseClick;
+            dgvCar.EditingControlShowing += dgvCar_EditingControlShowing;
             // 
             // ManageCarForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(924, 450);
+            ClientSize = new Size(808, 338);
             Controls.Add(dgvCar);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "ManageCarForm";
             Text = "ManageCarForm";
             ((System.ComponentModel.ISupportInitialize)dgvCar).EndInit();

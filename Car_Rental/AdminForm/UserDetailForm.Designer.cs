@@ -214,7 +214,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(324, 450);
+            ClientSize = new Size(324, 408);
             Controls.Add(btnCar);
             Controls.Add(btnRental);
             Controls.Add(btnClose);

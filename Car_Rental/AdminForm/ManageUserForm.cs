@@ -8,6 +8,7 @@ namespace Car_Rental.AdminForm
         private List<DisplayUser> _listDisplay;
         UserRepo _userRepo;
         AccountRepo _accountRepo;
+        AdminUtils _adminUtils;
 
         List<User> _listUser;
         List<Account> _listAccount;
@@ -21,6 +22,7 @@ namespace Car_Rental.AdminForm
         {
             _userRepo = new UserRepo();
             _accountRepo = new AccountRepo();
+            _adminUtils = new AdminUtils();
 
             _listUser = _userRepo.getAll();
             _listAccount = _accountRepo.getAll();
@@ -35,8 +37,8 @@ namespace Car_Rental.AdminForm
                                 Phone = account.Phone,
                                 Email = account.Email,
                                 Address = account.Address,
-                                Role = GetUserRole(user.Role),
-                                Status = GetUserStatus(user.Status)
+                                Role = _adminUtils.GetUserRole(user.Role),
+                                Status = _adminUtils.GetUserStatus(user.Status)
                             }).ToList();
 
 
@@ -67,6 +69,7 @@ namespace Car_Rental.AdminForm
 
         private void dgvUser_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            _adminUtils = new AdminUtils();
             DataGridView dgv = (DataGridView)sender;
             //labelMes.Text = "";
             if (e.RowIndex == dgv.Rows.Count - 1 || e.RowIndex == -1)
@@ -81,67 +84,13 @@ namespace Car_Rental.AdminForm
                 if (selectedData != null)
                 {
                     // Open new form and pass the selectedData to it
-                    UserDetailForm detailsForm = new UserDetailForm(selectedData, GetRoleFromUserRole(selectedData.Role));
+                    UserDetailForm detailsForm = new UserDetailForm(selectedData, _adminUtils.GetRoleFromUserRole(selectedData.Role));
                     detailsForm.Show();
                 }
             }
         }
 
-        private string GetUserRole(int? role)
-        {
-            switch (role)
-            {
-                case 0:
-                    return "Admin";
-                case 1:
-                    return "Renter";
-                case 2:
-                    return "Lessee";
-                default:
-                    return string.Empty;
-            }
-        }
 
-        private string GetUserStatus(int? status)
-        {
-            switch (status)
-            {
-                case 0:
-                    return "Active";
-                case 1:
-                    return "Inactive";
-                default:
-                    return string.Empty;
-            }
-        }
-
-        private int? GetRoleFromUserRole(string userRole)
-        {
-            switch (userRole)
-            {
-                case "Admin":
-                    return 0;
-                case "Renter":
-                    return 1;
-                case "Lessee":
-                    return 2;
-                default:
-                    return null;
-            }
-        }
-
-        private int? GetStatusFromUserStatus(string userStatus)
-        {
-            switch (userStatus)
-            {
-                case "Active":
-                    return 0;
-                case "Inactive":
-                    return 1;
-                default:
-                    return null;
-            }
-        }
 
         private void dgvUser_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
@@ -153,11 +102,11 @@ namespace Car_Rental.AdminForm
     public class DisplayUser
     {
         public int AccountId { get; set; }
-        public string Username { get; set; }
-        public string Fullname { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
+        public string? Username { get; set; }
+        public string? Fullname { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Address { get; set; }
         public string? Role { get; set; }
         public string? Status { get; set; }
     }
