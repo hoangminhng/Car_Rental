@@ -109,7 +109,7 @@ namespace Car_Rental
         //CRUD car cho thuê của mình
         private void btnMngCar_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new OwnerForm.OwnerCarManagement(), sender);
+            OpenChildForm(new OwnerForm.OwnerCarList(accoundId), sender);
         }
     }
 }
