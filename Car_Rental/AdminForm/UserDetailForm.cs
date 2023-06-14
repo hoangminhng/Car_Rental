@@ -70,7 +70,10 @@
             btnStatus.Visible = true;
         }
 
-
-
+        private void btnRental_Click(object sender, EventArgs e)
+        {
+            Form rentalForm = new ManageRentalForm(int.Parse(txtAccountId.Text.ToString()));
+            rentalForm.ShowDialog();
+        }
     }
 }

@@ -1,5 +1,6 @@
+CREATE DATABASE CarRental
 
-
+-- DROP DATABASE CarRental
 
 USE CarRental
 
@@ -105,9 +106,9 @@ VALUES
 ('Macan', 2, 5, 'SUV', '', 7, 'Automatic', 'Gasonline', 8, 'SUV gi ma ki', 500, 1)
 
 INSERT INTO [dbo].[Rental] ([Account_ID], [Car_ID], [Status]) VALUES 
-(2, 1, 0),
-(2, 3, 0),
-(4, 2, 0)
+(3, 1, 0),
+(3, 3, 0),
+(5, 2, 0)
 
 INSERT INTO [dbo].[RentalDetail] ([RentalDetail_ID], [PickupDate], [PickupTime], [PickupLocation], [DropOffDate], [DropOffTime], [DropOffLocation]) VALUES 
 (1, '2023-06-24', '06:30:00', 'Dictrict 1', '2023-06-26', '06:30:00', 'Dictrict 1')
