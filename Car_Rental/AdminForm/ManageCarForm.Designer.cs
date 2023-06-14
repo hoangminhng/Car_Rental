@@ -58,6 +58,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "ManageCarForm";
             Text = "ManageCarForm";
+            FormClosed += ManageCarForm_FormClosed;
             ((System.ComponentModel.ISupportInitialize)dgvCar).EndInit();
             ResumeLayout(false);
         }

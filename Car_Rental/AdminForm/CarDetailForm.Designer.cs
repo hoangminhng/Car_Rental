@@ -312,6 +312,7 @@
             btnStatus.TabIndex = 28;
             btnStatus.Text = "Approve";
             btnStatus.UseVisualStyleBackColor = true;
+            btnStatus.Click += btnStatus_Click;
             // 
             // btnOwner
             // 
@@ -330,6 +331,7 @@
             btnClose.TabIndex = 30;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // CarDetailForm
             // 
@@ -368,6 +370,7 @@
             Controls.Add(label1);
             Name = "CarDetailForm";
             Text = "CarDetailForm";
+            FormClosed += CarDetailForm_FormClosed;
             ((System.ComponentModel.ISupportInitialize)pBCar).EndInit();
             ((System.ComponentModel.ISupportInitialize)pBBranch).EndInit();
             ResumeLayout(false);

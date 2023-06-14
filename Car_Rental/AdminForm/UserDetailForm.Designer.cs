@@ -182,6 +182,7 @@
             btnStatus.TabIndex = 14;
             btnStatus.Text = "button1";
             btnStatus.UseVisualStyleBackColor = true;
+            btnStatus.Click += btnStatus_Click;
             // 
             // btnClose
             // 
@@ -191,6 +192,7 @@
             btnClose.TabIndex = 15;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // btnRental
             // 
@@ -235,6 +237,7 @@
             Controls.Add(label1);
             Name = "UserDetailForm";
             Text = "UserDetailForm";
+            FormClosed += UserDetailForm_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

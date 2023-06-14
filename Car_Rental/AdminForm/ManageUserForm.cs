@@ -84,7 +84,8 @@ namespace Car_Rental.AdminForm
                 if (selectedData != null)
                 {
                     // Open new form and pass the selectedData to it
-                    UserDetailForm detailsForm = new UserDetailForm(selectedData, _adminUtils.GetRoleFromUserRole(selectedData.Role));
+                    this.Hide();
+                    UserDetailForm detailsForm = new UserDetailForm(accountId, this);
                     detailsForm.Show();
                 }
             }
@@ -97,6 +98,11 @@ namespace Car_Rental.AdminForm
             DataGridView dataGridView = (DataGridView)sender;
             //Disable editting in all cell
             e.Control.Enabled = false;
+        }
+
+        private void ManageUserForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
     public class DisplayUser

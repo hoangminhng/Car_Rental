@@ -38,12 +38,11 @@
             dgvUser.AllowUserToOrderColumns = true;
             dgvUser.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUser.Location = new Point(-1, -1);
-            dgvUser.Margin = new Padding(3, 4, 3, 4);
             dgvUser.Name = "dgvUser";
             dgvUser.ReadOnly = true;
             dgvUser.RowHeadersWidth = 51;
             dgvUser.RowTemplate.Height = 25;
-            dgvUser.Size = new Size(1031, 312);
+            dgvUser.Size = new Size(902, 234);
             dgvUser.TabIndex = 0;
             dgvUser.CellDoubleClick += dgvUser_CellDoubleClick;
             dgvUser.ColumnHeaderMouseClick += dgvUser_ColumnHeaderMouseClick;
@@ -51,13 +50,13 @@
             // 
             // ManageUserForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1026, 600);
+            ClientSize = new Size(898, 450);
             Controls.Add(dgvUser);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "ManageUserForm";
             Text = "ManageUserForm";
+            FormClosed += ManageUserForm_FormClosed;
             ((System.ComponentModel.ISupportInitialize)dgvUser).EndInit();
             ResumeLayout(false);
         }

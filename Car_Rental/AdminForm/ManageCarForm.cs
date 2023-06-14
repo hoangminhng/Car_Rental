@@ -76,7 +76,9 @@ namespace Car_Rental.AdminForm
                 int carId = Convert.ToInt32(clickedRow.Cells["CarId"].Value);
                 if (carId > 0)
                 {
-                    CarDetailForm carDetailForm = new CarDetailForm(carId);
+                    this.Hide();
+                    CarDetailForm carDetailForm = new CarDetailForm(carId, this);
+
                     carDetailForm.Show();
                 }
             }
@@ -107,6 +109,11 @@ namespace Car_Rental.AdminForm
             DataGridView dataGridView = (DataGridView)sender;
             //Disable editting in all cell
             e.Control.Enabled = false;
+        }
+
+        private void ManageCarForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 
