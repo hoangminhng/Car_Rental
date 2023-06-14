@@ -16,11 +16,19 @@ namespace Car_Rental
         private Random random;
         private int tempIndex;
         private Form activeForm;
+        private int accoundId;
         public Owner()
         {
             InitializeComponent();
             random = new Random();
 
+        }
+
+        public Owner(int accountId)
+        {
+            InitializeComponent();
+            random = new Random();
+            this.accoundId = accountId;
         }
 
         private Color SelectThemColor()
@@ -90,7 +98,8 @@ namespace Car_Rental
         //CRUD thông tin cá nhân
         private void btnMngAccount_Click(object sender, EventArgs e)
         {
-            ActiveButton(sender);
+            //ActiveButton(sender);
+            OpenChildForm(new OwnerForm.OwnerAccount(accoundId), sender);
         }
         //xem các yêu cầu thuê xe của khách hàng đối với mình
         private void btnRequest_Click(object sender, EventArgs e)
