@@ -172,5 +172,12 @@ namespace Car_Rental.AdminForm
         {
             Application.Exit();
         }
+
+        private void btnRental_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form rentalForm = new ManageRentalForm(int.Parse(txtAccountId.Text.ToString()));
+            rentalForm.Show();
+        }
     }
 }

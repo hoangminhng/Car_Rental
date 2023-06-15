@@ -1,4 +1,6 @@
+CREATE DATABASE CarRental
 
+-- DROP DATABASE CarRental
 
 USE CarRental
 
