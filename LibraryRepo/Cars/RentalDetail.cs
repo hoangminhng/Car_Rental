@@ -3,17 +3,11 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace LibraryRepo.Models
+namespace LibraryRepo.Cars
 {
     public partial class RentalDetail
     {
-        public RentalDetail()
-        {
-            Payments = new HashSet<Payment>();
-        }
-
         public int RentalDetailId { get; set; }
-        public int? RentalId { get; set; }
         public DateTime? PickupDate { get; set; }
         public TimeSpan? PickupTime { get; set; }
         public string PickupLocation { get; set; }
@@ -21,7 +15,7 @@ namespace LibraryRepo.Models
         public TimeSpan? DropOffTime { get; set; }
         public string DropOffLocation { get; set; }
 
-        public virtual Rental Rental { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
+        public virtual Rental RentalDetailNavigation { get; set; }
+        public virtual Payment Payment { get; set; }
     }
 }

@@ -64,7 +64,7 @@
             // linkRegister
             // 
             linkRegister.AutoSize = true;
-            linkRegister.Location = new Point(744, 319);
+            linkRegister.Location = new Point(744, 315);
             linkRegister.Name = "linkRegister";
             linkRegister.Size = new Size(63, 20);
             linkRegister.TabIndex = 26;
