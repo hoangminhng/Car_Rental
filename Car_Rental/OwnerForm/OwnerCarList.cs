@@ -49,18 +49,11 @@ namespace Car_Rental.OwnerForm
                             join branch in _listBrand on car.BrandId equals branch.BrandId
                             select new DisplayCar
                             {
-                                CarId = car.CarId,
                                 Model = car.Model,
                                 BranchName = branch.BrandName,
                                 Type = car.Type,
-                                Seats = car.Seats,
-                                Transmission = car.Transmission,
-                                Fuel = car.Fuel,
-                                Consumption = car.Consumption,
-                                Describe = car.Describe,
                                 Price = car.Price,
-                                Status = car.Status,
-
+                                Status = GetCarStatus(car.Status),
                             }).ToList();
 
 
@@ -68,27 +61,54 @@ namespace Car_Rental.OwnerForm
             return _listDisplay;
         }
 
+        public string GetCarStatus(int? status)
+        {
+            switch (status)
+            {
+                case 0:
+                    return "Active";
+                case 1:
+                    return "Inactive";
+                default:
+                    return string.Empty;
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Form addCar = new OwnerCarManagement();
             addCar.ShowDialog();
         }
+
+        private void dgvOwnerCar_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            //labelMes.Text = "";
+            if (e.RowIndex == dgv.Rows.Count - 1 || e.RowIndex == -1)
+            {
+            }
+            else
+            {
+                DataGridViewRow clickedRow = dgvOwnerCar.Rows[e.RowIndex];
+                int carId = Convert.ToInt32(clickedRow.Cells["CarId"].Value);
+                if (carId > 0)
+                {
+                    this.Hide();
+                    OwnerCarDetail carDetailForm = new OwnerCarDetail(carId);
+
+                    carDetailForm.Show();
+                }
+            }
+        }
     }
 
     public class DisplayCar
     {
-        public int CarId { get; set; }
         public string Model { get; set; }
         public string BranchName { get; set; }
         public string Type { get; set; }
-        public string Images { get; set; }
-        public int? Seats { get; set; }
-        public string Transmission { get; set; }
-        public string Fuel { get; set; }
-        public int? Consumption { get; set; }
-        public string Describe { get; set; }
         public decimal? Price { get; set; }
-        public int? Status { get; set; } //active = 1, inactive = 0;
+        public string Status { get; set; } //active = 1, inactive = 0;
 
     }
 }

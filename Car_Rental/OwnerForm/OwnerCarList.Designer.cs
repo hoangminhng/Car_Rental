@@ -42,6 +42,7 @@
             dgvOwnerCar.RowTemplate.Height = 29;
             dgvOwnerCar.Size = new Size(798, 267);
             dgvOwnerCar.TabIndex = 0;
+            dgvOwnerCar.CellDoubleClick += dgvOwnerCar_CellDoubleClick;
             // 
             // btnAdd
             // 
