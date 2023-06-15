@@ -17,15 +17,17 @@ namespace Car_Rental.AdminForm
         DisplayUser _displayUser;
 
         private Form previousForm;
+        private Admin adminForm;
         public UserDetailForm()
         {
             InitializeComponent();
         }
 
-        public UserDetailForm(int accountId, Form previousForm)
+        public UserDetailForm(int accountId, Form previousForm, Admin adminForm)
         {
             InitializeComponent();
             this.previousForm = previousForm;
+            this.adminForm = adminForm;
 
             AccountId = accountId;
             _user = LoadDetail(accountId);
@@ -108,8 +110,8 @@ namespace Car_Rental.AdminForm
         {
             btnCar.Enabled = true;
             btnCar.Visible = true;
-            btnRental.Enabled = true;
-            btnRental.Visible = true;
+            btnRental.Enabled = false;
+            btnRental.Visible = false;
             btnStatus.Enabled = true;
             btnStatus.Visible = true;
         }
@@ -144,40 +146,34 @@ namespace Car_Rental.AdminForm
             LoadDetail(AccountId);
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            if (previousForm is ManageUserForm)
-            {
-                // Perform action specific to Form1
-                ManageUserForm returnForm = new ManageUserForm();
-                returnForm.Show();
-            }
-            //else if (previousForm is Form2)
-            //{
-            //    // Perform action specific to Form2
-            //    Form2 form2 = (Form2)previousForm;
-            //    form2.DoSomethingElse();
-            //}
-            //else if (previousForm is Form3)
-            //{
-            //    // Perform action specific to Form3
-            //    Form3 form3 = (Form3)previousForm;
-            //    form3.DoAnotherThing();
-            //}
 
-        }
 
         private void UserDetailForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            this.Hide();
+            if (previousForm is ManageUserForm manageUserForm)
+            {
+                manageUserForm.LoadList();
+
+            }
         }
 
         private void btnRental_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form rentalForm = new ManageRentalForm(int.Parse(txtAccountId.Text.ToString()));
-            rentalForm.Show();
+            ManageRentalForm manageRentalForm = new ManageRentalForm();
+            manageRentalForm.LoadList();
+            adminForm.OpenChildFormFromOutside(manageRentalForm);
+            manageRentalForm.loadRentalByAccountId(AccountId.ToString());
+        }
+
+        private void btnCar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ManageCarForm manageCarForm = new ManageCarForm();
+            manageCarForm.LoadList();
+            adminForm.OpenChildFormFromOutside(manageCarForm);
+            manageCarForm.loadCarByAccountId(AccountId.ToString());
         }
     }
 }

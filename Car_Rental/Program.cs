@@ -1,5 +1,3 @@
-using Car_Rental.AdminForm;
-
 namespace Car_Rental
 {
     internal static class Program
@@ -13,7 +11,7 @@ namespace Car_Rental
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new ManageUserForm());
+            Application.Run(new Admin());
         }
     }
 }

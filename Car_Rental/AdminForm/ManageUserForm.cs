@@ -1,5 +1,6 @@
 ﻿using LibraryRepo.Cars;
 using LibraryRepo.Repo;
+
 namespace Car_Rental.AdminForm
 {
     public partial class ManageUserForm : Form
@@ -10,11 +11,20 @@ namespace Car_Rental.AdminForm
         AccountRepo _accountRepo;
         AdminUtils _adminUtils;
 
+        Admin adminForm;
+
         List<User> _listUser;
         List<Account> _listAccount;
         public ManageUserForm()
         {
             InitializeComponent();
+            LoadList();
+        }
+
+        public ManageUserForm(Admin adminForm)
+        {
+            InitializeComponent();
+            this.adminForm = adminForm;
             LoadList();
         }
 
@@ -43,6 +53,13 @@ namespace Car_Rental.AdminForm
 
 
             dgvUser.DataSource = new BindingSource { DataSource = _listDisplay };
+
+            cbSearchBy.Items.Clear();
+            foreach (DataGridViewColumn column in dgvUser.Columns)
+            {
+                cbSearchBy.Items.Add(column.HeaderText);
+            }
+            cbSearchBy.DropDownStyle = ComboBoxStyle.DropDownList;
             return _listDisplay;
 
         }
@@ -84,8 +101,7 @@ namespace Car_Rental.AdminForm
                 if (selectedData != null)
                 {
                     // Open new form and pass the selectedData to it
-                    this.Hide();
-                    UserDetailForm detailsForm = new UserDetailForm(accountId, this);
+                    UserDetailForm detailsForm = new UserDetailForm(accountId, this, adminForm);
                     detailsForm.Show();
                 }
             }
@@ -102,7 +118,41 @@ namespace Car_Rental.AdminForm
 
         private void ManageUserForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadList();
+        }
+
+        public void SearchUser(string keyword, string searchby)
+        {
+            dgvUser.ClearSelection();
+            dgvUser.CurrentCell = null;
+
+            // Iterate through the DataGridView rows and filter based on the selected header and search string
+            foreach (DataGridViewRow row in dgvUser.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    if (row.Cells[searchby].Value != null &&
+                        row.Cells[searchby].Value.ToString().Contains(keyword))
+                    {
+                        row.Visible = true;
+                    }
+                    else
+                    {
+                        row.Visible = false;
+                    }
+                }
+            }
+        }
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchBy = cbSearchBy.SelectedItem as string;
+            string keyword = txtSearch.Text;
+            SearchUser(keyword, searchBy);
         }
     }
     public class DisplayUser

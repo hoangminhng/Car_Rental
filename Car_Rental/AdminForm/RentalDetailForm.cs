@@ -10,15 +10,20 @@ namespace Car_Rental.AdminForm
         private List<RentalDetail> _listRentalDetail;
         private RentalDetail rentalDetail;
         private DisplayRental displayRental;
-
+        private Form previousForm;
+        int _carId;
+        int _renterId;
+        Admin adminForm;
 
         public RentalDetailForm()
         {
             InitializeComponent();
         }
 
-        public RentalDetailForm(DisplayRental displayRental)
+        public RentalDetailForm(DisplayRental displayRental, Form previousForm, Admin adminForm)
         {
+            this.adminForm = adminForm;
+            this.previousForm = previousForm;
             InitializeComponent();
             this.displayRental = displayRental;
             LoadDetail(displayRental);
@@ -33,6 +38,8 @@ namespace Car_Rental.AdminForm
 
             if (rentalDetail != null)
             {
+                _carId = displayRental.CarId;
+                _renterId = (int)displayRental.RenterId;
                 txtRentalDetailId.Text = rentalDetail.RentalDetailId.ToString();
                 txtRenterName.Text = displayRental.RenterName.ToString();
                 txtCarModel.Text = displayRental.Model.ToString();
@@ -47,17 +54,31 @@ namespace Car_Rental.AdminForm
 
         private void RentalDetailForm_Load(object sender, EventArgs e)
         {
-
+            this.Hide();
+            if (previousForm is ManageRentalForm manageRentalForm)
+            {
+                manageRentalForm.LoadList();
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void RentalDetailForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+
+        }
+
+        private void btnRenter_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserDetailForm renter = new UserDetailForm(_renterId, this, adminForm);
+            renter.Show();
+        }
+
+        private void btnCar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CarDetailForm car = new CarDetailForm(_carId, this, adminForm);
+            car.Show();
         }
     }
 

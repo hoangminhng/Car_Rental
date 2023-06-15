@@ -17,17 +17,19 @@ namespace Car_Rental.AdminForm
         Account _account;
 
         private Form previousForm;
+        private Admin adminForm;
 
         public CarDetailForm()
         {
             InitializeComponent();
         }
 
-        public CarDetailForm(int carId, Form previousForm)
+        public CarDetailForm(int carId, Form previousForm, Admin adminForm)
         {
             InitializeComponent();
 
             this.previousForm = previousForm;
+            this.adminForm = adminForm;
 
             this.carId = carId;
 
@@ -92,31 +94,13 @@ namespace Car_Rental.AdminForm
 
         private void CarDetailForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            this.Hide();
+            if (previousForm is ManageCarForm manageCarForm)
+            {
+                manageCarForm.LoadList();
+            }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            if (previousForm is ManageCarForm)
-            {
-                // Perform action specific to Form1
-                ManageCarForm returnForm = new ManageCarForm();
-                returnForm.Show();
-            }
-            //else if (previousForm is Form2)
-            //{
-            //    // Perform action specific to Form2
-            //    Form2 form2 = (Form2)previousForm;
-            //    form2.DoSomethingElse();
-            //}
-            //else if (previousForm is Form3)
-            //{
-            //    // Perform action specific to Form3
-            //    Form3 form3 = (Form3)previousForm;
-            //    form3.DoAnotherThing();
-            //}
-        }
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
@@ -128,6 +112,13 @@ namespace Car_Rental.AdminForm
             _carRepo.Update(_car);
 
             LoadCar();
+        }
+
+        private void btnOwner_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserDetailForm detailsForm = new UserDetailForm(_car.AccountId, this, adminForm);
+            detailsForm.ShowDialog();
         }
     }
 }

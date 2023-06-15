@@ -57,7 +57,6 @@
             rtbDes = new RichTextBox();
             btnStatus = new Button();
             btnOwner = new Button();
-            btnClose = new Button();
             ((System.ComponentModel.ISupportInitialize)pBCar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pBBranch).BeginInit();
             SuspendLayout();
@@ -322,23 +321,13 @@
             btnOwner.TabIndex = 29;
             btnOwner.Text = "View Owner";
             btnOwner.UseVisualStyleBackColor = true;
-            // 
-            // btnClose
-            // 
-            btnClose.Location = new Point(297, 394);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(79, 23);
-            btnClose.TabIndex = 30;
-            btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
-            btnClose.Click += btnClose_Click;
+            btnOwner.Click += btnOwner_Click;
             // 
             // CarDetailForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(404, 450);
-            Controls.Add(btnClose);
             Controls.Add(btnOwner);
             Controls.Add(btnStatus);
             Controls.Add(rtbDes);
@@ -408,6 +397,5 @@
         private RichTextBox rtbDes;
         private Button btnStatus;
         private Button btnOwner;
-        private Button btnClose;
     }
 }
