@@ -48,7 +48,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(655, 315);
+            label3.Location = new Point(655, 353);
             label3.Name = "label3";
             label3.Size = new Size(83, 20);
             label3.TabIndex = 28;
@@ -64,7 +64,7 @@
             // linkRegister
             // 
             linkRegister.AutoSize = true;
-            linkRegister.Location = new Point(744, 319);
+            linkRegister.Location = new Point(744, 353);
             linkRegister.Name = "linkRegister";
             linkRegister.Size = new Size(63, 20);
             linkRegister.TabIndex = 26;
@@ -74,7 +74,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(781, 258);
+            btnCancel.Location = new Point(781, 286);
             btnCancel.Margin = new Padding(3, 4, 3, 4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(86, 31);
@@ -84,7 +84,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(640, 258);
+            btnLogin.Location = new Point(640, 286);
             btnLogin.Margin = new Padding(3, 4, 3, 4);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(86, 31);
@@ -95,7 +95,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(640, 171);
+            txtPassword.Location = new Point(640, 209);
             txtPassword.Margin = new Padding(3, 4, 3, 4);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(227, 27);
@@ -104,7 +104,7 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(640, 89);
+            txtUsername.Location = new Point(640, 141);
             txtUsername.Margin = new Padding(3, 4, 3, 4);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(227, 27);
@@ -113,7 +113,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(525, 182);
+            label2.Location = new Point(525, 216);
             label2.Name = "label2";
             label2.Size = new Size(70, 20);
             label2.TabIndex = 20;
@@ -122,7 +122,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(525, 91);
+            label1.Location = new Point(525, 148);
             label1.Name = "label1";
             label1.Size = new Size(75, 20);
             label1.TabIndex = 21;
@@ -134,7 +134,7 @@
             panelPicute.Dock = DockStyle.Left;
             panelPicute.Location = new Point(0, 0);
             panelPicute.Name = "panelPicute";
-            panelPicute.Size = new Size(0, 343);
+            panelPicute.Size = new Size(0, 459);
             panelPicute.TabIndex = 29;
             // 
             // pictureBox1
@@ -143,7 +143,7 @@
             pictureBox1.Image = Properties.Resources.bugatti_chiron_wallpaper_1920x1080;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(483, 343);
+            pictureBox1.Size = new Size(483, 459);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 30;
             pictureBox1.TabStop = false;
@@ -174,7 +174,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1002, 343);
+            ClientSize = new Size(1002, 459);
             Controls.Add(panel1);
             Controls.Add(pictureBox1);
             Controls.Add(panelPicute);

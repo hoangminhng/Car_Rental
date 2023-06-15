@@ -15,6 +15,7 @@ namespace Car_Rental
     public partial class Login : Form
     {
         private UserRepo userRepo = new UserRepo();
+        private AccountRepo accountRepo = new AccountRepo();
         public Login()
         {
             InitializeComponent();
@@ -43,7 +44,9 @@ namespace Car_Rental
                         else if (user.Role == 1)
                         {
                             this.Hide();
-                            Form customerForm = new Customer();
+                            var accounts = accountRepo.getAll();
+                            var account = accounts.First(a => a.UserId == user.UserId);
+                            Form customerForm = new Customer(account.AccountId);
                             customerForm.ShowDialog();
                         }
                         else
