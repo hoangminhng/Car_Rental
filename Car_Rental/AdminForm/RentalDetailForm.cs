@@ -1,15 +1,5 @@
 ﻿using LibraryRepo.Cars;
 using LibraryRepo.Repo;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Car_Rental.AdminForm
 {
@@ -63,6 +53,11 @@ namespace Car_Rental.AdminForm
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void RentalDetailForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 

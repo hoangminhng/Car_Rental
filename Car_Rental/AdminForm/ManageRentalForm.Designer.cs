@@ -54,6 +54,7 @@
             Controls.Add(dgvRental);
             Name = "ManageRentalForm";
             Text = "ManageRentalForm";
+            Load += ManageRentalForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvRental).EndInit();
             ResumeLayout(false);
         }

@@ -1,12 +1,14 @@
 ﻿using LibraryRepo.Cars;
 using LibraryRepo.Repo;
 
+
 namespace Car_Rental.AdminForm
 {
     public partial class ManageCarForm : Form
     {
-
+        private bool sortAscending = false;
         private List<DisplayCar> _listDisplay;
+        private AdminUtils _adminUtils;
 
         CarRepo _carRepo;
         UserRepo _userRepo;
@@ -32,6 +34,7 @@ namespace Car_Rental.AdminForm
             _accountRepo = new AccountRepo();
             _carRepo = new CarRepo();
             _brandRepo = new BrandRepo();
+            _adminUtils = new AdminUtils();
 
             _listUser = _userRepo.getAll();
             _listAccount = _accountRepo.getAll();
@@ -50,7 +53,7 @@ namespace Car_Rental.AdminForm
                                 Model = car.Model,
                                 BranchName = branch.BrandName,
                                 Price = car.Price,
-                                Status = GetCarStatus(car.Status),
+                                Status = _adminUtils.GetCarStatus(car.Status),
                             }).ToList();
 
 
@@ -58,43 +61,72 @@ namespace Car_Rental.AdminForm
             return _listDisplay;
         }
 
-        private string GetCarStatus(int? status)
+
+
+        private void dgvCar_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            switch (status)
+            DataGridView dgv = (DataGridView)sender;
+            //labelMes.Text = "";
+            if (e.RowIndex == dgv.Rows.Count - 1 || e.RowIndex == -1)
             {
-                case 0:
-                    return "Active";
-                case 1:
-                    return "Inactive";
-                default:
-                    return string.Empty;
+            }
+            else
+            {
+                DataGridViewRow clickedRow = dgvCar.Rows[e.RowIndex];
+                int carId = Convert.ToInt32(clickedRow.Cells["CarId"].Value);
+                if (carId > 0)
+                {
+                    this.Hide();
+                    CarDetailForm carDetailForm = new CarDetailForm(carId, this);
+
+                    carDetailForm.Show();
+                }
             }
         }
 
-        private int? GetStatusFromCarStatus(string carStatus)
+        private void dgvCar_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            switch (carStatus)
+            if (_listDisplay != null && e.ColumnIndex >= 0 && e.ColumnIndex < dgvCar.Columns.Count)
             {
-                case "Active":
-                    return 0;
-                case "Inactive":
-                    return 1;
-                default:
-                    return null;
+                string propertyName = dgvCar.Columns[e.ColumnIndex].DataPropertyName;
+
+                if (sortAscending)
+                    dgvCar.DataSource = _listDisplay.OrderBy(d => GetPropertyValue(d, propertyName)).ToList();
+                else
+                    dgvCar.DataSource = _listDisplay.OrderByDescending(d => GetPropertyValue(d, propertyName)).ToList();
+
+                sortAscending = !sortAscending;
             }
+        }
+
+        private object GetPropertyValue(object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName)?.GetValue(obj, null);
+        }
+
+        private void dgvCar_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            //Disable editting in all cell
+            e.Control.Enabled = false;
+        }
+
+        private void ManageCarForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 
 
     public class DisplayCar
     {
-        public int AccountId { get; set; }
-        public string Fullname { get; set; }
         public int CarId { get; set; }
-        public string Model { get; set; }
-        public string BranchName { get; set; }
+        public int AccountId { get; set; }
+        public string? Fullname { get; set; }
+        public string? Model { get; set; }
+        public string? BranchName { get; set; }
         public decimal? Price { get; set; }
-        public string Status { get; set; } //active = 1, inactive = 0;
+        public string? Status { get; set; } //active = 1, inactive = 0;
 
     }
 }

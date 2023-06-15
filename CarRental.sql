@@ -90,25 +90,25 @@ INSERT INTO [dbo].[Account] ([Account_ID], [Fullname], [Phone], [Email], [Addres
 (5, 'Renter 2', '012344333', 'renter2@gmail.com', 'Quan 4')
 
 INSERT INTO [dbo].[Brand] ([BrandName], [Logo]) VALUES
-('Toyota', ''),
-('Porsche', ''),
-('Madza', ''),
-('KIA', ''),
-('VinFast', ''),
-('Audi', ''),
-('Mercedes', '')
+('Toyota', 'C:\Users\khang\Downloads\CarRental\Logo\toyota.png'),
+('Porsche', 'C:\Users\khang\Downloads\CarRental\Logo\porsche.jpg'),
+('Mazda', 'C:\Users\khang\Downloads\CarRental\Logo\mazda.png'),
+('KIA', 'C:\Users\khang\Downloads\CarRental\Logo\kia.png'),
+('VinFast', 'C:\Users\khang\Downloads\CarRental\Logo\vinfast.jpg'),
+('Audi', 'C:\Users\khang\Downloads\CarRental\Logo\audi.jpg'),
+('Mercedes', 'C:\Users\khang\Downloads\CarRental\Logo\merc.png')
 
 INSERT INTO [dbo].[Car] ([Model], [BrandID], [Account_ID], [Type], [Images], [Seats],
 						[Transmission], [Fuel], [Consumption], [Describe], [Price], [Status])
 VALUES
-('Camry 2023', 1, 3, 'Sedan', '', 4, 'Automatic', 'Gasonline', 7, 'Toyota nhu ba gia', 123, 1),
-('C300 AMG', 7, 3, 'sedan', '', 4, 'Automatic', 'Gasonline', 9, 'Mercedes C300 AMG', 900, 1),
-('Macan', 2, 5, 'SUV', '', 7, 'Automatic', 'Gasonline', 8, 'SUV gi ma ki', 500, 1)
+('Camry 2023', 1, 2, 'Sedan', 'C:\Users\khang\Downloads\CarRental\Car1.jpg', 4, 'Automatic', 'Gasonline', 7, 'Toyota nhu ba gia', 123, 1),
+('C300 AMG', 7, 2, 'sedan', 'C:\Users\khang\Downloads\CarRental\Car2.jpg', 4, 'Automatic', 'Gasonline', 9, 'Mercedes C300 AMG', 900, 1),
+('Macan', 2, 4, 'SUV', 'C:\Users\khang\Downloads\CarRental\Car3.jpg', 7, 'Automatic', 'Gasonline', 8, 'SUV gi ma ki', 500, 1)
 
 INSERT INTO [dbo].[Rental] ([Account_ID], [Car_ID], [Status]) VALUES 
 (3, 1, 0),
-(3, 3, 0),
-(5, 2, 0)
+(5, 3, 0),
+(3, 2, 0)
 
 INSERT INTO [dbo].[RentalDetail] ([RentalDetail_ID], [PickupDate], [PickupTime], [PickupLocation], [DropOffDate], [DropOffTime], [DropOffLocation]) VALUES 
 (1, '2023-06-24', '06:30:00', 'Dictrict 1', '2023-06-26', '06:30:00', 'Dictrict 1')

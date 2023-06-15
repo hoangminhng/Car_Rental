@@ -247,6 +247,7 @@
             Controls.Add(label1);
             Name = "RentalDetailForm";
             Text = "RentalDetailForm";
+            FormClosed += RentalDetailForm_FormClosed;
             Load += RentalDetailForm_Load;
             ResumeLayout(false);
             PerformLayout();

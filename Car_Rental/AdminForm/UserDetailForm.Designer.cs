@@ -183,6 +183,7 @@
             btnStatus.TabIndex = 14;
             btnStatus.Text = "button1";
             btnStatus.UseVisualStyleBackColor = true;
+            btnStatus.Click += btnStatus_Click;
             // 
             // btnClose
             // 
@@ -193,6 +194,7 @@
             btnClose.TabIndex = 15;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // btnRental
             // 
@@ -219,7 +221,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(450, 600);
+            ClientSize = new Size(401, 542);
             Controls.Add(btnCar);
             Controls.Add(btnRental);
             Controls.Add(btnClose);
@@ -240,7 +242,7 @@
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "UserDetailForm";
-            Text = "UserDetailForm";
+            FormClosed += UserDetailForm_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
