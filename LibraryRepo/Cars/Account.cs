@@ -7,11 +7,11 @@ namespace LibraryRepo.Cars
 {
     public partial class Account
     {
-        public Account()
-        {
-            Payments = new HashSet<Payment>();
-            Rentals = new HashSet<Rental>();
-        }
+        //public Account()
+        //{
+        //    Payments = new HashSet<Payment>();
+        //    Rentals = new HashSet<Rental>();
+        //}
 
         public int AccountId { get; set; }
         public string Fullname { get; set; }

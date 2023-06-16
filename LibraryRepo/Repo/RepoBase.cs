@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+
 
 namespace LibraryRepo.Repo
 {
@@ -31,10 +33,10 @@ namespace LibraryRepo.Repo
                 context.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
-                throw;
             }
         }
 
@@ -46,7 +48,7 @@ namespace LibraryRepo.Repo
                 context.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
                 throw;
