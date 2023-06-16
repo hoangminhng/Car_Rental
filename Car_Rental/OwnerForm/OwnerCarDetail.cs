@@ -1,5 +1,6 @@
 ﻿using LibraryRepo.Cars;
 using LibraryRepo.Repo;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,25 +16,28 @@ namespace Car_Rental.OwnerForm
     public partial class OwnerCarDetail : Form
     {
         private int carId;
-        CarRepo _carRepo;
-        UserRepo _userRepo;
-        AccountRepo _accountRepo;
-        BrandRepo _brandRepo;
 
-        Car _car;
-        Brand _brand;
-        Account _account;
+        private CarRepo _carRepo;
+        private UserRepo _userRepo;
+        private AccountRepo _accountRepo;
+        private BrandRepo _brandRepo;
+        private RentalRepo _rentalRepo;
+        private Car _car;
+        private Brand _brand;
+        private Account _account;
 
+        private OwnerCarList ownerCarList;
         public OwnerCarDetail()
         {
             InitializeComponent();
         }
 
-        public OwnerCarDetail(int carId)
+        public OwnerCarDetail(int carId, OwnerCarList parentForm)
         {
             InitializeComponent();
             this.carId = carId;
             LoadCar();
+            this.ownerCarList = parentForm;
         }
 
         public string GetCarStatus(int? status)
@@ -56,21 +60,21 @@ namespace Car_Rental.OwnerForm
 
 
             //car image
-            //string imgPath = _car.Images;
-            //Image carImage = Image.FromFile(imgPath);
+            string imgPath = _car.Images;
+            Image carImage = Image.FromFile(imgPath);
 
-            //pBCar.Image = carImage;
-            //pBCar.SizeMode = PictureBoxSizeMode.Zoom;
+            pBCar.Image = carImage;
+            pBCar.SizeMode = PictureBoxSizeMode.Zoom;
 
             //branch image
             _brandRepo = new BrandRepo();
             _brand = _brandRepo.getAll().Where(p => p.BrandId == _car.BrandId).FirstOrDefault();
 
-            //string imgPathBrand = _brand.Logo;
-            //Image brandImage = Image.FromFile(imgPathBrand);
+            string imgPathBrand = _brand.Logo;
+            Image brandImage = Image.FromFile(imgPathBrand);
 
-            //pBBranch.Image = brandImage;
-            //pBBranch.SizeMode = PictureBoxSizeMode.Zoom;
+            pBBranch.Image = brandImage;
+            pBBranch.SizeMode = PictureBoxSizeMode.Zoom;
             //Load text
 
             txtModel.Text = _car.Model;
@@ -87,6 +91,46 @@ namespace Car_Rental.OwnerForm
             _account = _accountRepo.getAll().Where(p => p.AccountId == _car.AccountId).FirstOrDefault();
 
             return _car;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            _carRepo = new CarRepo();
+            _rentalRepo = new RentalRepo();
+            var car = _carRepo.getAll().Where(x => x.CarId == carId).FirstOrDefault();
+            var rental = _rentalRepo.getAll().Where(x => x.CarId == carId).FirstOrDefault();
+            try
+            {
+                if (rental.Status == 0)
+                {
+                    MessageBox.Show("This car is being rented", "Error", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show("Are you sure want to delete this car?", "Notification", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        bool isDeleted = _carRepo.Delete(car);
+                        if (isDeleted)
+                        {
+                            if (ownerCarList != null)
+                            {
+                                ownerCarList.LoadList(_car.AccountId);
+                            }
+                            MessageBox.Show("Delete car successful", "Notification", MessageBoxButtons.OK);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("This car is being rented", "Error", MessageBoxButtons.OK);
+            }
         }
     }
 }

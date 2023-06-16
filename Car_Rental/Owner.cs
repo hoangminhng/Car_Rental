@@ -111,5 +111,16 @@ namespace Car_Rental
         {
             OpenChildForm(new OwnerForm.OwnerCarList(accoundId), sender);
         }
+
+        private void btnSignOut_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure want to sign out?", "Notification", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                this.Hide();
+                Form login = new Login();
+                login.ShowDialog();
+            }
+        }
     }
 }

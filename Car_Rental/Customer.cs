@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryRepo.Repo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,11 +17,58 @@ namespace Car_Rental
         private Random random;
         private int tempIndex;
         private Form activeForm;
-        public Customer()
+        CarRepo context;
+        RentalRepo _rental;
+        AccountRepo _account;
+        UserRepo _user;
+        BrandRepo _brand;
+        public List<ListCarcs> itemCars;
+        public List<ListCarcs> itemCarsFilter;
+
+        BrandRepo listofBrand = new BrandRepo();
+        public Customer(int idaccount)
         {
             InitializeComponent();
             random = new Random();
+            context = new CarRepo();
+            _brand = new BrandRepo();
+            _rental = new RentalRepo();
+            _account = new AccountRepo();
+            _user = new UserRepo();
+            int acc = idaccount;
+            var brand = _brand.getAll();
+            combobrand.DataSource = new BindingSource() { DataSource = brand };
+            var data = context.getAll().Select(p => new
+            {
+                Namecar = p.Model,
+                Price = p.Price,
+                Img = p.Images,
+                Rentalid = _rental.getAll().FirstOrDefault(r => r.CarId == 1).RentalId,
+
+                Username = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == 1).AccountId).Fullname
+
+            }).ToList();
+            var list = new ListCarcs[data.Count];
+            int i = 0;
+            itemCars = new List<ListCarcs>();
+            itemCarsFilter = new List<ListCarcs>();
+            foreach (var item in data)
+            {
+                list[i] = new ListCarcs();
+                list[i].uri_car = item.Img;
+                list[i].name = item.Namecar;
+                list[i].price = (int)item.Price;
+                list[i].idrental = (int)item.Rentalid;
+                list[i].owner = item.Username;
+                list[i].idaccount = acc;
+                list[i].LoadImageAsync();
+                itemCars.Add(list[i]);
+                itemCarsFilter.Add(list[i]);
+                i++;
+            }
+            carlayout.Controls.AddRange(list);
         }
+
         private Color SelectThemColor()
         {
             int index = random.Next(ThemeColor.ColorList.Count);
@@ -45,8 +93,8 @@ namespace Car_Rental
                     currentButton.BackColor = color;
                     currentButton.ForeColor = Color.White;
                     currentButton.Font = new Font("Segoe UI", 12.5F, FontStyle.Regular, GraphicsUnit.Point);
-                    pnlTitle.BackColor = color;
-                    panelLogo.BackColor = color;
+                    paneltittle.BackColor = color;
+                    label1.BackColor = color;
                     ThemeColor.PrimaryColor = color;
                     ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, -0.3);
                 }
@@ -62,11 +110,11 @@ namespace Car_Rental
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
-            this.panelContainer.Controls.Add(childForm);
-            this.panelContainer.Tag = childForm;
+            this.pnlShow.Controls.Add(childForm);
+            this.pnlShow.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-            lbTitle.Text = childForm.Text;
+            pnlShow.Text = childForm.Text;
         }
 
         private void DisableButton()
@@ -81,21 +129,78 @@ namespace Car_Rental
                 }
             }
         }
-
         //quản lý account của mình, CRUD
-        private void btnAccount_Click(object sender, EventArgs e)
+        private void btnAccount_Click_1(object sender, EventArgs e)
         {
-            ActiveButton(sender);
+
         }
         //view các car hiện có thể cho thuê
-        private void btnViewCar_Click(object sender, EventArgs e)
+        private void btnViewCar_Click_1(object sender, EventArgs e)
         {
-            ActiveButton(sender);
+
         }
         //dùng để view lịch sử các đơn thuê (success, cancal, on going)
-        private void btnHistory_Click(object sender, EventArgs e)
+        private void btnMngRental_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
         {
             ActiveButton(sender);
+            this.Show();
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            carlayout.Controls.Clear();
+            context = new CarRepo();
+            _brand = new BrandRepo();
+            _rental = new RentalRepo();
+            _account = new AccountRepo();
+            _user = new UserRepo();
+            string txt_name = txt_search.Text;
+            String namebrand = combobrand.Text;
+            var __brand = _brand.getAll().FirstOrDefault(t => t.BrandName == namebrand);
+            int id = __brand.BrandId;
+            var data = context.getAll().Select(p => new
+            {
+                Namecar = p.Model,
+                Price = p.Price,
+                BrandId = p.BrandId,
+                Img = p.Images,
+                Username =  _account.getAll().FirstOrDefault(t => t.AccountId == 
+                            _rental.getAll().FirstOrDefault(r => r.CarId == p.CarId).AccountId).Fullname
+
+            }).ToList();
+            var filter = data.Where(p => p.BrandId == id && p.Namecar.Contains(txt_name, StringComparison.OrdinalIgnoreCase)).ToList();
+            var list = new ListCarcs[filter.Count];
+            int i = 0;
+            itemCars = new List<ListCarcs>();
+            itemCarsFilter = new List<ListCarcs>();
+            foreach (var item in filter)
+            {
+                list[i] = new ListCarcs();
+                list[i].uri_car = @"D://Car_Rental//Car_Rental//Resources//" + item.Img;
+                list[i].name = item.Namecar;
+                list[i].price = (int)item.Price;
+                list[i].owner = item.Username;
+                list[i].LoadImageAsync();
+                itemCars.Add(list[i]);
+                itemCarsFilter.Add(list[i]);
+                i++;
+            }
+            if (filter.Count == 0)
+            {
+                message.Visible = true;
+            }
+            else
+            {
+                message.Visible = false;
+                var brand = _brand.getAll();
+                combobrand.DataSource = new BindingSource() { DataSource = brand };
+                carlayout.Controls.AddRange(list);
+            }
         }
     }
 }

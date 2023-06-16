@@ -75,6 +75,7 @@
             btnUpdate.TabIndex = 59;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -85,6 +86,7 @@
             btnDelete.TabIndex = 58;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // rtbDes
             // 
@@ -264,9 +266,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(75, 118);
             label3.Name = "label3";
-            label3.Size = new Size(57, 20);
+            label3.Size = new Size(51, 20);
             label3.TabIndex = 34;
-            label3.Text = "Branch:";
+            label3.Text = "Brand:";
             // 
             // label2
             // 

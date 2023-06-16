@@ -49,6 +49,7 @@ namespace Car_Rental.OwnerForm
                             join branch in _listBrand on car.BrandId equals branch.BrandId
                             select new DisplayCar
                             {
+                                CarId = car.CarId,
                                 Model = car.Model,
                                 BranchName = branch.BrandName,
                                 Type = car.Type,
@@ -57,7 +58,7 @@ namespace Car_Rental.OwnerForm
                             }).ToList();
 
 
-            dgvOwnerCar.DataSource = new BindingSource { DataSource = _listDisplay };
+            dgvCarList.DataSource = new BindingSource { DataSource = _listDisplay };
             return _listDisplay;
         }
 
@@ -74,13 +75,7 @@ namespace Car_Rental.OwnerForm
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            Form addCar = new OwnerCarManagement();
-            addCar.ShowDialog();
-        }
-
-        private void dgvOwnerCar_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvCarList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
             //labelMes.Text = "";
@@ -89,21 +84,27 @@ namespace Car_Rental.OwnerForm
             }
             else
             {
-                DataGridViewRow clickedRow = dgvOwnerCar.Rows[e.RowIndex];
+                DataGridViewRow clickedRow = dgvCarList.Rows[e.RowIndex];
                 int carId = Convert.ToInt32(clickedRow.Cells["CarId"].Value);
                 if (carId > 0)
                 {
-                    this.Hide();
-                    OwnerCarDetail carDetailForm = new OwnerCarDetail(carId);
-
+                    Form carDetailForm = new OwnerCarDetail(carId, this);
                     carDetailForm.Show();
                 }
             }
         }
+
+        private void btnAddNewCar_Click(object sender, EventArgs e)
+        {
+            Form addCar = new OwnerCarManagement(accountId, this);
+            addCar.Show();
+        }
+
     }
 
     public class DisplayCar
     {
+        public int CarId { get; set; }
         public string Model { get; set; }
         public string BranchName { get; set; }
         public string Type { get; set; }
