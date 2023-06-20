@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace LibraryRepo.Models
+namespace LibraryRepo.Cars
 {
     public partial class Account
     {
@@ -14,13 +14,12 @@ namespace LibraryRepo.Models
         }
 
         public int AccountId { get; set; }
-        public int? UserId { get; set; }
         public string Fullname { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User AccountNavigation { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<Rental> Rentals { get; set; }
     }

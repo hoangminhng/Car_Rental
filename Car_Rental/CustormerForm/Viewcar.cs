@@ -37,9 +37,9 @@ namespace Car_Rental.CustormerForm
                 c.Describe,
                 c.Images,
                 Brand = _brand.getAll().FirstOrDefault(b => b.BrandId == c.BrandId).BrandName,
-                Rentalid = _rental.getAll().FirstOrDefault(r => r.CarId == c.CarId).RentalId,
-                Username = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == c.CarId).AccountId).Fullname,
-                Phone = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == c.CarId).AccountId).Phone
+                Rentalid = _rental.getAll().FirstOrDefault(r => r.CarId == 1).RentalId,
+                Username = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == 1).AccountId).Fullname,
+                Phone = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == 1).AccountId).Phone
             }).ToList();
             var information = data.Where(infor => infor.Rentalid == idrental);
             foreach (var item in information)
@@ -51,7 +51,7 @@ namespace Car_Rental.CustormerForm
                 txt_seat.Text = item.Seats.ToString();
                 txt_price.Text = item.Price.ToString();
                 txt_phone.Text = item.Phone.ToString();
-                Image image = Image.FromFile(@"D://Car_Rental//Car_Rental//Resources//" + item.Images);
+                Image image = Image.FromFile(item.Images);
                 Image resizedImage = new Bitmap(204, 192);
 
                 using (Graphics graphics = Graphics.FromImage(resizedImage))

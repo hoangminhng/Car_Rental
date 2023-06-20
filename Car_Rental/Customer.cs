@@ -43,8 +43,9 @@ namespace Car_Rental
                 Namecar = p.Model,
                 Price = p.Price,
                 Img = p.Images,
-                Rentalid = _rental.getAll().FirstOrDefault(r => r.CarId == p.CarId).RentalId,
-                Username = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == p.CarId).AccountId).Fullname
+                Rentalid = _rental.getAll().FirstOrDefault(r => r.CarId == 1).RentalId,
+
+                Username = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == 1).AccountId).Fullname
 
             }).ToList();
             var list = new ListCarcs[data.Count];
@@ -54,7 +55,7 @@ namespace Car_Rental
             foreach (var item in data)
             {
                 list[i] = new ListCarcs();
-                list[i].uri_car = @"D://Car_Rental//Car_Rental//Resources//" + item.Img;
+                list[i].uri_car = item.Img;
                 list[i].name = item.Namecar;
                 list[i].price = (int)item.Price;
                 list[i].idrental = (int)item.Rentalid;
@@ -168,7 +169,8 @@ namespace Car_Rental
                 Price = p.Price,
                 BrandId = p.BrandId,
                 Img = p.Images,
-                Username = _user.getAll().FirstOrDefault(u => u.UserId == _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == p.CarId).AccountId).UserId).Username
+                Username =  _account.getAll().FirstOrDefault(t => t.AccountId == 
+                            _rental.getAll().FirstOrDefault(r => r.CarId == p.CarId).AccountId).Fullname
 
             }).ToList();
             var filter = data.Where(p => p.BrandId == id && p.Namecar.Contains(txt_name, StringComparison.OrdinalIgnoreCase)).ToList();

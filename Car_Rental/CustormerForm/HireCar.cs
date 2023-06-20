@@ -1,4 +1,4 @@
-﻿using LibraryRepo.Models;
+﻿using LibraryRepo.Cars;
 using LibraryRepo.Repo;
 using System;
 using System.Collections.Generic;
@@ -56,9 +56,9 @@ namespace Car_Rental.CustormerForm
                 rentalDetail.DropOffDate = datedropoff;
                 rentalDetail.DropOffTime = timedropoff;
                 rentalDetail.DropOffLocation = locationdropoff;
-                rentalDetail.RentalId = id;
+                rentalDetail.RentalDetailId = id;
                 _rentaldetail.Create(rentalDetail);
-                payment.RentalDetailId = _rentaldetail.getAll().First(r => r.RentalId == id).RentalDetailId;
+                payment.PaymentId = _rentaldetail.getAll().First(r => r.RentalDetailId == id).RentalDetailId;
                 payment.AccountId = idaccount;
                 payment.Status = 1;
                 payment.TotalPrice = price;
