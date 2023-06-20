@@ -1,4 +1,6 @@
-﻿using LibraryRepo.Repo;
+﻿using Car_Rental.AdminForm;
+using LibraryRepo.Repo;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +26,7 @@ namespace Car_Rental
         BrandRepo _brand;
         public List<ListCarcs> itemCars;
         public List<ListCarcs> itemCarsFilter;
+        int acc; 
 
         BrandRepo listofBrand = new BrandRepo();
         public Customer(int idaccount)
@@ -35,7 +38,7 @@ namespace Car_Rental
             _rental = new RentalRepo();
             _account = new AccountRepo();
             _user = new UserRepo();
-            int acc = idaccount;
+            acc = idaccount;
             var brand = _brand.getAll();
             combobrand.DataSource = new BindingSource() { DataSource = brand };
             var data = context.getAll().Select(p => new
@@ -132,6 +135,9 @@ namespace Car_Rental
         //quản lý account của mình, CRUD
         private void btnAccount_Click_1(object sender, EventArgs e)
         {
+            int accountId = acc;
+            Form ViewAccountDetails = new ViewAccountDetails(accountId);
+            ViewAccountDetails.ShowDialog();
 
         }
         //view các car hiện có thể cho thuê

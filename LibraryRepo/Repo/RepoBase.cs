@@ -60,5 +60,20 @@ namespace LibraryRepo.Repo
             tracker.State = EntityState.Modified;
             context.SaveChanges();
         }
+
+        public bool boolUpdate(T entity)
+        {
+            try
+            {
+                var tracker = context.Attach(entity);
+                tracker.State = EntityState.Modified;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
