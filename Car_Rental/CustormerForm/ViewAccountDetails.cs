@@ -1,6 +1,7 @@
 ﻿using Car_Rental.AdminForm;
 using LibraryRepo.Cars;
 using LibraryRepo.Repo;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,9 +25,11 @@ namespace Car_Rental
         private User _user;
         private Account _account;
         int accId;
+        private Customer _customerForm;
 
-        public ViewAccountDetails(int accountId)
+        public ViewAccountDetails(int accountId, Customer customerForm)
         {
+            _customerForm = customerForm;
             accId = accountId;
             InitializeComponent();
             LoadDetails(accountId);
@@ -78,15 +82,16 @@ namespace Car_Rental
             _userRepo = new UserRepo();
             _accountRepo = new AccountRepo();
 
-            if (String.IsNullOrEmpty(txtFullname.Text) || String.IsNullOrEmpty(txtAddress.Text) 
-                || String.IsNullOrEmpty(txtEmail.Text) || String.IsNullOrEmpty(txtPhone.Text))  {
+            if (String.IsNullOrEmpty(txtFullname.Text) || String.IsNullOrEmpty(txtAddress.Text)
+                || String.IsNullOrEmpty(txtEmail.Text) || String.IsNullOrEmpty(txtPhone.Text))
+            {
                 MessageBox.Show("Please fill in all the field", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             _account.Fullname = txtFullname.Text;
             _account.Address = txtAddress.Text;
-            _account.Email = txtEmail.Text; 
+            _account.Email = txtEmail.Text;
             _account.Phone = txtPhone.Text;
 
             check = _accountRepo.boolUpdate(_account);
@@ -101,6 +106,24 @@ namespace Car_Rental
 
             LoadDetails(accountId);
 
+        }
+
+        public void deactivateUserAccount(int accountId)
+        {
+            _userRepo = new UserRepo();
+            _accountRepo = new AccountRepo();
+
+            _user = _userRepo.getAll().Where(x => x.AccountId == accountId).FirstOrDefault();
+
+            _user.Status = 1;
+            _userRepo.Update(_user);
+            MessageBox.Show("Accoutn is deactivated", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            this.Close();
+            _customerForm.Close();
+
+            Login loginForm = new Login();
+            loginForm.Show();
         }
 
         public class UserDetails
@@ -122,7 +145,7 @@ namespace Car_Rental
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            deactivateUserAccount(accId);
         }
     }
 }

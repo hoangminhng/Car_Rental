@@ -154,7 +154,7 @@
             // 
             btnUpdate.Location = new Point(375, 819);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(209, 46);
+            btnUpdate.Size = new Size(164, 46);
             btnUpdate.TabIndex = 12;
             btnUpdate.Text = "Update Info";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -162,11 +162,11 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(595, 819);
+            btnDelete.Location = new Point(640, 819);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(209, 46);
+            btnDelete.Size = new Size(164, 46);
             btnDelete.TabIndex = 13;
-            btnDelete.Text = "Delete Account";
+            btnDelete.Text = "Deactivate";
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 

@@ -1,4 +1,5 @@
 ﻿using Car_Rental.AdminForm;
+using Car_Rental.CustormerForm;
 using LibraryRepo.Repo;
 using Microsoft.Identity.Client;
 using System;
@@ -136,7 +137,7 @@ namespace Car_Rental
         private void btnAccount_Click_1(object sender, EventArgs e)
         {
             int accountId = acc;
-            Form ViewAccountDetails = new ViewAccountDetails(accountId);
+            Form ViewAccountDetails = new ViewAccountDetails(accountId, this);
             ViewAccountDetails.ShowDialog();
 
         }
@@ -148,7 +149,9 @@ namespace Car_Rental
         //dùng để view lịch sử các đơn thuê (success, cancal, on going)
         private void btnMngRental_Click_1(object sender, EventArgs e)
         {
-
+            int accountId = acc;
+            ViewRentalHistory viewRentalHistoryForm = new ViewRentalHistory(accountId);
+            viewRentalHistoryForm.ShowDialog();
         }
 
         private void btnHome_Click(object sender, EventArgs e)
