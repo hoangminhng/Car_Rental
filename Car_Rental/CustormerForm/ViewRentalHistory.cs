@@ -81,8 +81,6 @@ namespace Car_Rental.CustormerForm
 
         public List<RentalDetail> LoadHistory(int accountId)
         {
-            //List<RentalDetail> rentalDetails = new List<RentalDetail>();
-
             listRental = _rentalRepo.getAll();
             listAccount = _accountRepo.getAll();
             listRentalDetails = _rentalDetailRepo.getAll();
@@ -102,8 +100,12 @@ namespace Car_Rental.CustormerForm
                     DropOffLocation = rd.DropOffLocation,
                 }
             ).ToList();
+            if (listRentalDetails != null)
+            {
+                dgvRentalDetail.DataSource = new BindingSource { DataSource = listRentalDetails };
+                
+            }
 
-            dgvRentalDetail.DataSource = new BindingSource { DataSource = listRentalDetails };
             return listRentalDetails;
         }
     }

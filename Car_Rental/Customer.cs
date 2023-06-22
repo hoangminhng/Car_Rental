@@ -27,7 +27,7 @@ namespace Car_Rental
         BrandRepo _brand;
         public List<ListCarcs> itemCars;
         public List<ListCarcs> itemCarsFilter;
-        int acc; 
+        int acc;
 
         BrandRepo listofBrand = new BrandRepo();
         public Customer(int idaccount)
@@ -178,7 +178,7 @@ namespace Car_Rental
                 Price = p.Price,
                 BrandId = p.BrandId,
                 Img = p.Images,
-                Username =  _account.getAll().FirstOrDefault(t => t.AccountId == 
+                Username = _account.getAll().FirstOrDefault(t => t.AccountId ==
                             _rental.getAll().FirstOrDefault(r => r.CarId == p.CarId).AccountId).Fullname
 
             }).ToList();
@@ -210,6 +210,13 @@ namespace Car_Rental
                 combobrand.DataSource = new BindingSource() { DataSource = brand };
                 carlayout.Controls.AddRange(list);
             }
+        }
+
+        private void btnChangePwd_Click(object sender, EventArgs e)
+        {
+            int accountId = acc;
+            CustomerChangePassword CustomerChangePasswordForm = new CustomerChangePassword(accountId);
+            CustomerChangePasswordForm.ShowDialog();
         }
     }
 }
