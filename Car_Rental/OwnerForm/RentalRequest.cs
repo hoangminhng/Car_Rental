@@ -1,0 +1,164 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Car_Rental.OwnerForm
+{
+    public partial class RentalRequest : UserControl
+    {
+        public RentalRequest()
+        {
+            InitializeComponent();
+        }
+
+        private void RentalRequest_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show(_Customer_ID.ToString(), "noti", MessageBoxButtons.OK);
+        }
+        public string _Img;
+
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReject_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public string Img
+        {
+            set
+            {
+                this._Img = value;
+                Image carImage = Image.FromFile(Img);
+                imageCar.Image = carImage;
+                imageCar.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            get { return _Img; }
+        }
+
+        public int _Rentail_ID { get; set; }
+        public int Rentail_ID
+        {
+            set
+            {
+                this._Rentail_ID = value;
+                txtRentalID.Text = value.ToString();
+            }
+            get { return _Rentail_ID; }
+        }
+
+        public int _Customer_ID { get; set; }
+        public int Customer_ID
+        {
+            set
+            {
+                this._Customer_ID = value;
+                txtCustomer_ID.Text = value.ToString();
+            }
+            get { return _Customer_ID; }
+        }
+
+        public int _Car_ID { get; set; }
+        public int Car_ID
+        {
+            set
+            {
+                this._Car_ID = value;
+                txtCarID.Text = value.ToString();
+            }
+            get { return _Car_ID; }
+        }
+
+        public string _status { set; get; }
+        public string status
+        {
+            set
+            {
+                this._status = value;
+                txtStatus.Text = value.ToString();
+            }
+            get { return _status; }
+        }
+
+        public DateTime _PickupDate { get; set; }
+        public DateTime PickupDate
+        {
+            set
+            {
+                this._PickupDate = value;
+                txtPickUpDate.Text = value.ToString("yyyy-MM-dd");
+            }
+            get { return _PickupDate; }
+        }
+
+        public TimeSpan? _PickUpTime { get; set; }
+        public TimeSpan? PickUpTime
+        {
+            set
+            {
+                this._PickUpTime = value;
+                txtPickUpTime.Text = value.ToString();
+            }
+            get { return _PickUpTime; }
+        }
+
+        public string _PickupLocation { get; set; }
+        public string PickupLocation
+        {
+            set
+            {
+                this._PickupLocation = value;
+                txtPickUpLocation.Text = value.ToString();
+            }
+            get { return _PickupLocation; }
+        }
+
+        public DateTime _DropOffDate { get; set; }
+        public DateTime DropOffDate
+        {
+            set
+            {
+                this._DropOffDate = value;
+                txtDropOffDate.Text = value.ToString("yyyy-MM-dd");
+            }
+            get { return _DropOffDate; }
+        }
+
+        public TimeSpan? _DropOffTime { get; set; }
+        public TimeSpan? DropOffTime
+        {
+            set
+            {
+                this._DropOffTime = value;
+                txtDropOffTime.Text = value.ToString();
+            }
+            get { return _DropOffTime; }
+        }
+
+        public string _DropOffLocation { get; set; }
+        public string DropOffLocation
+        {
+            set
+            {
+                this._DropOffLocation = value;
+                txtDropOffLocation.Text = value.ToString();
+            }
+            get { return _DropOffLocation; }
+        }
+
+    }
+}
