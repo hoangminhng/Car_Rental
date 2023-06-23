@@ -1,5 +1,6 @@
 ﻿using LibraryRepo.Cars;
 using LibraryRepo.Repo;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Car_Rental.AdminForm
 {
@@ -8,41 +9,56 @@ namespace Car_Rental.AdminForm
         RentalDetailRepo _rentalDetailRepo;
         RentalRepo _rentalRepo;
         private List<RentalDetail> _listRentalDetail;
+        private List<Rental> _listRental;
         private RentalDetail rentalDetail;
+        private Rental rental;
         private DisplayRental displayRental;
         private Form previousForm;
         int _carId;
         int _renterId;
-        Admin adminForm;
+        int _rentalId;
+        Admin _adminForm;
+
+        private int _subForm;
 
         public RentalDetailForm()
         {
             InitializeComponent();
         }
 
+        public RentalDetailForm(int rentalId, Admin adminForm)
+        {
+            InitializeComponent();
+
+            _adminForm = adminForm;
+            _subForm = adminForm.subForm;
+
+            _rentalId = rentalId;
+
+            LoadDetail();
+        }
+
         public RentalDetailForm(DisplayRental displayRental, Form previousForm, Admin adminForm)
         {
-            this.adminForm = adminForm;
+            this._adminForm = adminForm;
             this.previousForm = previousForm;
             InitializeComponent();
             this.displayRental = displayRental;
-            LoadDetail(displayRental);
+            LoadDetail();
         }
 
-        public void LoadDetail(DisplayRental displayRental)
+        public void LoadDetail()
         {
             _rentalDetailRepo = new RentalDetailRepo();
             _listRentalDetail = _rentalDetailRepo.getAll();
 
-            rentalDetail = _listRentalDetail.FirstOrDefault(rd => rd.RentalDetailId == displayRental.No);
+            rentalDetail = _listRentalDetail.FirstOrDefault(rd => rd.RentalDetailId == _rentalId);
 
             if (rentalDetail != null)
             {
-                _carId = displayRental.CarId;
-                _renterId = (int)displayRental.RenterId;
                 txtRentalDetailId.Text = rentalDetail.RentalDetailId.ToString();
-                txtRenterName.Text = displayRental.RenterName.ToString();
-                txtCarModel.Text = displayRental.Model.ToString();
+                //txtRenterName.Text = displayRental.RenterName.ToString();
+                //txtCarModel.Text = displayRental.Model.ToString();
                 txtPickupDate.Text = rentalDetail.PickupDate.ToString();
                 txtPickupTime.Text = rentalDetail.PickupTime.ToString();
                 txtPickupLocation.Text = rentalDetail.PickupLocation;

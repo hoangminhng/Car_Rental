@@ -13,6 +13,7 @@ namespace Car_Rental
         private CarRepo _carRepo;
         private BrandRepo _brandRepo;
         private AccountRepo _accountRepo;
+        private RentalRepo _rentalRepo;
 
         public int subForm; //1,2,3
 
@@ -129,7 +130,9 @@ namespace Car_Rental
 
         private void btnMngRental_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ManageRentalForm(this), sender);
+            //OpenChildForm(new ManageRentalForm(this), sender);
+            ActiveButton((Control)sender, "MANAGE RENTAL");
+            LoadRental();
         }
 
         private void btnMngCar_Click(object sender, EventArgs e)
@@ -146,6 +149,7 @@ namespace Car_Rental
             _carRepo = new CarRepo();
             _brandRepo = new BrandRepo();
             _accountRepo = new AccountRepo();
+            
             List<Car> _listCar = _carRepo.getAll();
             List<Brand> _listBrand = _brandRepo.getAll();
             List<Account> _listAccount = _accountRepo.getAll();
@@ -191,6 +195,89 @@ namespace Car_Rental
             panelContainer.Controls.AddRange(carLabels.ToArray()); // Add all the Label controls at once
 
 
+        }
+
+        public void LoadRental() //subform 3
+        {
+            subForm = 3;
+            List<AdminRentals> itemRentals;
+            List<AdminRentals> itemRentalsFilter;
+            _carRepo = new CarRepo();
+            _brandRepo = new BrandRepo();
+            _accountRepo = new AccountRepo();
+            _rentalRepo = new RentalRepo();
+            List<Car> _listCar = _carRepo.getAll();
+            List<Brand> _listBrand = _brandRepo.getAll();
+            List<Account> _listAccount = _accountRepo.getAll();
+            List<Rental> _listRental = _rentalRepo.getAll();
+            var _listDisplay = (from rental in _listRental
+                                join car in _listCar on rental.CarId equals car.CarId
+                                join account in _listAccount on rental.AccountId equals account.AccountId
+                                select new AdminRentals
+                                {
+                                    RentalId = rental.RentalId,
+                                    RenterName = account.Fullname,
+                                    OwnerName = GetOwnerName(car.AccountId),
+                                    Price = car.Price,
+                                    Model = car.Model,
+                                    Status = GetRentalStatus(rental.Status),
+                                }).ToList();
+            var list = new AdminRentals[_listDisplay.Count];
+            int i = 0;
+            itemRentals = new List<AdminRentals>();
+            itemRentalsFilter = new List<AdminRentals>();
+            panelContainer.Controls.Clear(); // Clear any existing controls in panelContainer
+
+            List<AdminRentals> rentalLabels = new List<AdminRentals>(); // Create a list to hold the Label controls
+            foreach (var item in _listDisplay)
+            {
+                var adminRentals = new AdminRentals(this);
+                adminRentals.RentalId = item.RentalId;
+                adminRentals.RenterName = item.RenterName;
+                adminRentals.OwnerName = item.OwnerName;
+                adminRentals.Model = item.Model;
+                adminRentals.Price = item.Price;
+                adminRentals.Status = item.Status;
+
+                //ownerCar.LoadImageAsync();
+                itemRentals.Add(adminRentals);
+                itemRentalsFilter.Add(adminRentals);
+                rentalLabels.Add(adminRentals); // Add the carLabel to the list
+            }
+            panelContainer.Controls.AddRange(rentalLabels.ToArray()); // Add all the Label controls at once
+
+
+        }
+
+        private string GetOwnerName(int accountId)
+        {
+            _carRepo = new CarRepo();
+            _accountRepo = new AccountRepo();
+            List<Car> _listCar = _carRepo.getAll();
+            List<Account> _listAccount = _accountRepo.getAll();
+
+            var ownerName = (from car in _listCar
+                             join account in _listAccount on car.AccountId equals account.AccountId
+                             where account.AccountId == accountId
+                             select account.Fullname).FirstOrDefault();
+
+            return ownerName ?? "";
+        }
+
+
+        private string GetRentalStatus(int? status)
+        {
+            switch (status)
+            {
+                case 0:
+                    return "Rented";
+                case 1:
+                    return "Renting";
+                case 2:
+                    return "Ready to rent";
+                default:
+                    return string.Empty;
+            }
         }
 
         public string GetCarStatus(int? status)
