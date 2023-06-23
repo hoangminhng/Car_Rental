@@ -1,8 +1,14 @@
-﻿namespace Car_Rental.AdminForm
+﻿using LibraryRepo.Cars;
+using LibraryRepo.Repo;
+
+namespace Car_Rental.AdminForm
 {
     public class AdminUtils
     {
-        public string GetCarStatus(int? status)
+        private static CarRepo _carRepo;
+        private static AccountRepo _accountRepo;
+
+        public static string GetCarStatus(int? status)
         {
             switch (status)
             {
@@ -15,7 +21,7 @@
             }
         }
 
-        public int? GetStatusFromCarStatus(string carStatus)
+        public static int? GetStatusFromCarStatus(string carStatus)
         {
             switch (carStatus)
             {
@@ -28,7 +34,7 @@
             }
         }
 
-        public string GetUserRole(int? role)
+        public static string GetUserRole(int? role)
         {
             switch (role)
             {
@@ -43,7 +49,7 @@
             }
         }
 
-        public string GetUserStatus(int? status)
+        public static string GetUserStatus(int? status)
         {
             switch (status)
             {
@@ -83,6 +89,22 @@
                     return null;
             }
         }
+
+        public static string GetOwnerName(int accountId)
+        {
+            _carRepo = new CarRepo();
+            _accountRepo = new AccountRepo();
+            List<Car> _listCar = _carRepo.getAll();
+            List<Account> _listAccount = _accountRepo.getAll();
+
+            var ownerName = (from car in _listCar
+                             join account in _listAccount on car.AccountId equals account.AccountId
+                             where account.AccountId == accountId
+                             select account.Fullname).FirstOrDefault();
+
+            return ownerName ?? "";
+        }
+
     }
 
 

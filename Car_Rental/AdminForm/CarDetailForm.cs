@@ -68,13 +68,12 @@ namespace Car_Rental.AdminForm
             pBBranch.SizeMode = PictureBoxSizeMode.Zoom;
             //Load text
 
-            _adminUtils = new AdminUtils();
             txtCarId.Text = _carId.ToString();
             txtModel.Text = _car.Model;
             txtType.Text = _car.Type;
             txtSeat.Text = _car.Seats.ToString();
             txtFuel.Text = _car.Fuel;
-            txtStatus.Text = _adminUtils.GetCarStatus(_car.Status);
+            txtStatus.Text = AdminUtils.GetCarStatus(_car.Status);
             txtComsumption.Text = _car.Consumption.ToString();
             txtTransmission.Text = _car.Transmission.ToString();
             rtbDes.Text = _car.Describe.ToString();

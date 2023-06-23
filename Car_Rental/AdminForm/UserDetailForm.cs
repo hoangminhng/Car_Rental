@@ -94,8 +94,8 @@ namespace Car_Rental.AdminForm
                 Phone = _account.Phone,
                 Email = _account.Email,
                 Address = _account.Address,
-                Role = _adminUtils.GetUserRole(_user.Role),
-                Status = _adminUtils.GetUserStatus(_user.Status)
+                Role = AdminUtils.GetUserRole(_user.Role),
+                Status = AdminUtils.GetUserStatus(_user.Status)
             };
 
             txtAccountId.Text = _displayUser.AccountId.ToString();
@@ -164,9 +164,17 @@ namespace Car_Rental.AdminForm
         private void UserDetailForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Hide();
-            if (_subForm == 2)
+            switch (_subForm)
             {
-                _adminForm.LoadCar();
+                case 1:
+                    _adminForm.LoadUser();
+                    break;
+                case 2:
+                    _adminForm.LoadCar();
+                    break;
+                case 3:
+                    _adminForm.LoadRental();
+                    break;
             }
         }
     }

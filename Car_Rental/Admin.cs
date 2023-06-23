@@ -14,7 +14,7 @@ namespace Car_Rental
         private BrandRepo _brandRepo;
         private AccountRepo _accountRepo;
         private RentalRepo _rentalRepo;
-
+        private UserRepo _userRepo;
         public int subForm; //1,2,3
 
 
@@ -125,7 +125,8 @@ namespace Car_Rental
 
         private void btnMngUser_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ManageUserForm(this), sender);
+            ActiveButton((Control)sender, "MANAGE USER");
+            LoadUser();
         }
 
         private void btnMngRental_Click(object sender, EventArgs e)
@@ -141,6 +142,50 @@ namespace Car_Rental
             LoadCar();
         }
 
+        public void LoadUser() //subform 3
+        {
+            subForm = 1;
+            List<AdminUsers> itemUsers;
+            List<AdminUsers> itemUsersFilter;
+            _accountRepo = new AccountRepo();
+            _userRepo = new UserRepo();
+            List<Account> _listAccount = _accountRepo.getAll();
+            List<User> _listUser = _userRepo.getAll();
+            var _listDisplay = (from account in _listAccount
+                                join user in _listUser on account.AccountId equals user.AccountId
+                                select new AdminUsers
+                                {
+                                    ID = account.AccountId,
+                                    Fullname = account.Fullname,
+                                    Username = user.Username,
+                                    Role = AdminUtils.GetUserRole(user.Role),
+                                    Status = AdminUtils.GetUserStatus(user.Status),
+                                }).ToList();
+            var list = new AdminUsers[_listDisplay.Count];
+            int i = 0;
+            itemUsers = new List<AdminUsers>();
+            itemUsersFilter = new List<AdminUsers>();
+            panelContainer.Controls.Clear(); // Clear any existing controls in panelContainer
+
+            List<AdminUsers> rentalLabels = new List<AdminUsers>(); // Create a list to hold the Label controls
+            foreach (var item in _listDisplay)
+            {
+                var adminUser = new AdminUsers(this);
+                adminUser.ID = item.ID;
+                adminUser.Fullname = item.Fullname;
+                adminUser.Username = item.Username;
+                adminUser.Role = item.Role;
+                adminUser.Status = item.Status;
+
+                itemUsers.Add(adminUser);
+                itemUsersFilter.Add(adminUser);
+                rentalLabels.Add(adminUser);
+            }
+            panelContainer.Controls.AddRange(rentalLabels.ToArray()); // Add all the Label controls at once
+
+
+        }
+
         public void LoadCar() //subform 2
         {
             subForm = 2;
@@ -149,7 +194,7 @@ namespace Car_Rental
             _carRepo = new CarRepo();
             _brandRepo = new BrandRepo();
             _accountRepo = new AccountRepo();
-            
+
             List<Car> _listCar = _carRepo.getAll();
             List<Brand> _listBrand = _brandRepo.getAll();
             List<Account> _listAccount = _accountRepo.getAll();
@@ -217,10 +262,14 @@ namespace Car_Rental
                                 {
                                     RentalId = rental.RentalId,
                                     RenterName = account.Fullname,
-                                    OwnerName = GetOwnerName(car.AccountId),
+                                    OwnerName = AdminUtils.GetOwnerName(car.AccountId),
                                     Price = car.Price,
                                     Model = car.Model,
                                     Status = GetRentalStatus(rental.Status),
+                                    Img = car.Images,
+                                    _ownerId = car.AccountId,
+                                    _renterId = rental.AccountId,
+                                    _carId = car.CarId,
                                 }).ToList();
             var list = new AdminRentals[_listDisplay.Count];
             int i = 0;
@@ -238,8 +287,11 @@ namespace Car_Rental
                 adminRentals.Model = item.Model;
                 adminRentals.Price = item.Price;
                 adminRentals.Status = item.Status;
+                adminRentals.Img = item.Img;
+                adminRentals._renterId = item._renterId;
+                adminRentals._ownerId = item._ownerId;
+                adminRentals._carId = item._carId;
 
-                //ownerCar.LoadImageAsync();
                 itemRentals.Add(adminRentals);
                 itemRentalsFilter.Add(adminRentals);
                 rentalLabels.Add(adminRentals); // Add the carLabel to the list
@@ -249,20 +301,6 @@ namespace Car_Rental
 
         }
 
-        private string GetOwnerName(int accountId)
-        {
-            _carRepo = new CarRepo();
-            _accountRepo = new AccountRepo();
-            List<Car> _listCar = _carRepo.getAll();
-            List<Account> _listAccount = _accountRepo.getAll();
-
-            var ownerName = (from car in _listCar
-                             join account in _listAccount on car.AccountId equals account.AccountId
-                             where account.AccountId == accountId
-                             select account.Fullname).FirstOrDefault();
-
-            return ownerName ?? "";
-        }
 
 
         private string GetRentalStatus(int? status)

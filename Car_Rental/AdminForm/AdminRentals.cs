@@ -16,12 +16,6 @@
 
         public int _RentalId;
 
-        private void btnDetail_Click(object sender, EventArgs e)
-        {
-            RentalDetailForm rentalDetailForm = new RentalDetailForm(_RentalId, _adminForm);
-
-            rentalDetailForm.Show();
-        }
 
         public int RentalId
         {
@@ -103,6 +97,49 @@
                 txtStatus.Text = value.ToString();
             }
             get { return _Status; }
+        }
+
+        public string _Img;
+        public string Img
+        {
+            set
+            {
+                this._Img = value;
+                Image carImage = Image.FromFile(Img);
+                imgCar.Image = carImage;
+                imgCar.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            get { return _Img; }
+        }
+
+        public int? _ownerId { get; set; }
+        public int? _renterId { get; set; }
+        public int? _carId { get; set; }
+
+        private void btnOwner_Click(object sender, EventArgs e)
+        {
+            UserDetailForm userDetailForm = new UserDetailForm((int)_ownerId, _adminForm);
+            userDetailForm.Show();
+        }
+
+
+        private void btnDetail_Click(object sender, EventArgs e)
+        {
+            RentalDetailForm rentalDetailForm = new RentalDetailForm(_RentalId, _adminForm);
+
+            rentalDetailForm.Show();
+        }
+
+        private void btnRenter_Click(object sender, EventArgs e)
+        {
+            UserDetailForm userDetailForm = new UserDetailForm((int)_renterId, _adminForm);
+            userDetailForm.Show();
+        }
+
+        private void btnCar_Click(object sender, EventArgs e)
+        {
+            CarDetailForm carDetailForm = new CarDetailForm((int)_carId, _adminForm);
+            carDetailForm.Show();
         }
     }
 }
