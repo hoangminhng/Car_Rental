@@ -101,8 +101,8 @@ namespace Car_Rental.AdminForm
                 if (selectedData != null)
                 {
                     // Open new form and pass the selectedData to it
-                    UserDetailForm detailsForm = new UserDetailForm(accountId, this, adminForm);
-                    detailsForm.Show();
+                    //UserDetailForm detailsForm = new UserDetailForm(accountId, this, adminForm);
+                    //detailsForm.Show();
                 }
             }
         }

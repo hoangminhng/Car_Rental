@@ -10,28 +10,36 @@ namespace Car_Rental.AdminForm
         AccountRepo _accountRepo;
         BrandRepo _brandRepo;
         private AdminUtils _adminUtils;
-        int carId;
+        int _carId;
 
         Car _car;
         Brand _brand;
         Account _account;
 
-        private Form previousForm;
-        private Admin adminForm;
+        private Admin _adminForm;
+        private int _subForm;
 
         public CarDetailForm()
         {
             InitializeComponent();
         }
 
-        public CarDetailForm(int carId, Form previousForm, Admin adminForm)
+        public CarDetailForm(int carId, Admin adminForm)
         {
             InitializeComponent();
 
-            this.previousForm = previousForm;
-            this.adminForm = adminForm;
+            _adminForm = adminForm;
+            _subForm = adminForm.subForm;
 
-            this.carId = carId;
+            _carId = carId;
+
+            LoadCar();
+        }
+
+        public CarDetailForm(int carId)
+        {
+            InitializeComponent();
+            _carId = carId;
 
             LoadCar();
         }
@@ -39,7 +47,7 @@ namespace Car_Rental.AdminForm
         public Car LoadCar()
         {
             _carRepo = new CarRepo();
-            _car = _carRepo.getAll().Where(p => p.CarId == carId).FirstOrDefault();
+            _car = _carRepo.getAll().Where(p => p.CarId == _carId).FirstOrDefault();
 
 
             //car image
@@ -61,7 +69,7 @@ namespace Car_Rental.AdminForm
             //Load text
 
             _adminUtils = new AdminUtils();
-            txtCarId.Text = carId.ToString();
+            txtCarId.Text = _carId.ToString();
             txtModel.Text = _car.Model;
             txtType.Text = _car.Type;
             txtSeat.Text = _car.Seats.ToString();
@@ -95,9 +103,9 @@ namespace Car_Rental.AdminForm
         private void CarDetailForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Hide();
-            if (previousForm is ManageCarForm manageCarForm)
+            if (_subForm == 2)
             {
-                manageCarForm.LoadList();
+                _adminForm.LoadCar();
             }
         }
 
@@ -105,7 +113,7 @@ namespace Car_Rental.AdminForm
         private void btnStatus_Click(object sender, EventArgs e)
         {
             _carRepo = new CarRepo();
-            _car = _carRepo.getAll().Where(p => p.CarId == carId).FirstOrDefault();
+            _car = _carRepo.getAll().Where(p => p.CarId == _carId).FirstOrDefault();
 
             _car.Status = 0;
 
@@ -114,11 +122,5 @@ namespace Car_Rental.AdminForm
             LoadCar();
         }
 
-        private void btnOwner_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            UserDetailForm detailsForm = new UserDetailForm(_car.AccountId, this, adminForm);
-            detailsForm.ShowDialog();
-        }
     }
 }

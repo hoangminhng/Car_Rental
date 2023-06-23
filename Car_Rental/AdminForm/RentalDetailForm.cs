@@ -70,15 +70,15 @@ namespace Car_Rental.AdminForm
         private void btnRenter_Click(object sender, EventArgs e)
         {
             this.Hide();
-            UserDetailForm renter = new UserDetailForm(_renterId, this, adminForm);
-            renter.Show();
+            //UserDetailForm renter = new UserDetailForm(_renterId, this, adminForm);
+            //renter.Show();
         }
 
         private void btnCar_Click(object sender, EventArgs e)
         {
             this.Hide();
-            CarDetailForm car = new CarDetailForm(_carId, this, adminForm);
-            car.Show();
+            //CarDetailForm car = new CarDetailForm(_carId, this, adminForm);
+            //car.Show();
         }
     }
 

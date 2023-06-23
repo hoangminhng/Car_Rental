@@ -56,7 +56,6 @@
             txtComsumption = new Label();
             rtbDes = new RichTextBox();
             btnStatus = new Button();
-            btnOwner = new Button();
             ((System.ComponentModel.ISupportInitialize)pBCar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pBBranch).BeginInit();
             SuspendLayout();
@@ -313,22 +312,11 @@
             btnStatus.UseVisualStyleBackColor = true;
             btnStatus.Click += btnStatus_Click;
             // 
-            // btnOwner
-            // 
-            btnOwner.Location = new Point(191, 394);
-            btnOwner.Name = "btnOwner";
-            btnOwner.Size = new Size(79, 23);
-            btnOwner.TabIndex = 29;
-            btnOwner.Text = "View Owner";
-            btnOwner.UseVisualStyleBackColor = true;
-            btnOwner.Click += btnOwner_Click;
-            // 
             // CarDetailForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(404, 450);
-            Controls.Add(btnOwner);
             Controls.Add(btnStatus);
             Controls.Add(rtbDes);
             Controls.Add(txtComsumption);
@@ -396,6 +384,5 @@
         private Label txtComsumption;
         private RichTextBox rtbDes;
         private Button btnStatus;
-        private Button btnOwner;
     }
 }

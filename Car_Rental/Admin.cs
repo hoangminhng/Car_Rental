@@ -1,4 +1,6 @@
 ﻿using Car_Rental.AdminForm;
+using LibraryRepo.Cars;
+using LibraryRepo.Repo;
 
 namespace Car_Rental
 {
@@ -8,7 +10,13 @@ namespace Car_Rental
         private Random random;
         private int tempIndex;
         private Form activeForm;
-        private Form previousForm;
+        private CarRepo _carRepo;
+        private BrandRepo _brandRepo;
+        private AccountRepo _accountRepo;
+
+        public int subForm; //1,2,3
+
+
         public Admin()
         {
             InitializeComponent();
@@ -60,6 +68,28 @@ namespace Car_Rental
             }
         }
 
+        private void ActiveButton(object sender, string titleHeader)
+        {
+            DisableButton();
+            if (sender != null)
+            {
+                if (currentButton != (Button)sender)
+                {
+                    Color color = SelectThemColor();
+                    currentButton = (Button)sender;
+                    currentButton.BackColor = color;
+                    currentButton.ForeColor = Color.White;
+                    currentButton.Font = new Font("Segoe UI", 12.5F, FontStyle.Regular, GraphicsUnit.Point);
+                    pnlTitle.BackColor = color;
+                    panelLogo.BackColor = color;
+                    lbTitle.Text = titleHeader;
+                    ThemeColor.PrimaryColor = color;
+                    ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, -0.3);
+                }
+
+            }
+        }
+
         private void OpenChildForm(Form childForm, object btnSender)
         {
             if (activeForm != null)
@@ -104,7 +134,76 @@ namespace Car_Rental
 
         private void btnMngCar_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ManageCarForm(this), sender);
+            ActiveButton((Control)sender, "MANAGE CAR");
+            LoadCar();
+        }
+
+        public void LoadCar() //subform 2
+        {
+            subForm = 2;
+            List<AdminCars> itemCars;
+            List<AdminCars> itemCarsFilter;
+            _carRepo = new CarRepo();
+            _brandRepo = new BrandRepo();
+            _accountRepo = new AccountRepo();
+            List<Car> _listCar = _carRepo.getAll();
+            List<Brand> _listBrand = _brandRepo.getAll();
+            List<Account> _listAccount = _accountRepo.getAll();
+            var _listDisplay = (from car in _listCar
+                                join branch in _listBrand on car.BrandId equals branch.BrandId
+                                join account in _listAccount on car.AccountId equals account.AccountId
+                                select new AdminCars
+                                {
+                                    Car_ID = car.CarId,
+                                    Model = car.Model,
+                                    Img = car.Images,
+                                    Brandname = branch.BrandName,
+                                    Type = car.Type,
+                                    Price = car.Price,
+                                    Status = GetCarStatus(car.Status),
+                                    OwnerName = account.Fullname,
+                                    OwnerId = car.AccountId,
+                                }).ToList();
+            var list = new AdminCars[_listDisplay.Count];
+            int i = 0;
+            itemCars = new List<AdminCars>();
+            itemCarsFilter = new List<AdminCars>();
+            panelContainer.Controls.Clear(); // Clear any existing controls in panelContainer
+
+            List<AdminCars> carLabels = new List<AdminCars>(); // Create a list to hold the Label controls
+            foreach (var item in _listDisplay)
+            {
+                var adminCars = new AdminCars(this);
+                adminCars.Img = item.Img;
+                adminCars.Car_ID = item.Car_ID;
+                adminCars.Model = item.Model;
+                adminCars.Brandname = item.Brandname;
+                adminCars.Type = item.Type;
+                adminCars.Price = item.Price;
+                adminCars.Status = item.Status;
+                adminCars.OwnerName = item.OwnerName;
+                adminCars.OwnerId = item.OwnerId;
+                //ownerCar.LoadImageAsync();
+                itemCars.Add(adminCars);
+                itemCarsFilter.Add(adminCars);
+                carLabels.Add(adminCars); // Add the carLabel to the list
+            }
+            panelContainer.Controls.AddRange(carLabels.ToArray()); // Add all the Label controls at once
+
+
+        }
+
+        public string GetCarStatus(int? status)
+        {
+            switch (status)
+            {
+                case 0:
+                    return "Active";
+                case 1:
+                    return "Inactive";
+                default:
+                    return string.Empty;
+            }
         }
 
         private void Admin_FormClosed(object sender, FormClosedEventArgs e)

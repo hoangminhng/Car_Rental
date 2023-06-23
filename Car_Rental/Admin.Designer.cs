@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panelContainer = new Panel();
             pnlTitle = new Panel();
             lbTitle = new Label();
             panel1 = new Panel();
@@ -37,18 +36,10 @@
             btnMngUser = new Button();
             panelLogo = new Panel();
             panel2 = new Panel();
+            panelContainer = new FlowLayoutPanel();
             pnlTitle.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // panelContainer
-            // 
-            panelContainer.Dock = DockStyle.Fill;
-            panelContainer.Location = new Point(242, 88);
-            panelContainer.Margin = new Padding(3, 4, 3, 4);
-            panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(773, 549);
-            panelContainer.TabIndex = 11;
             // 
             // pnlTitle
             // 
@@ -169,6 +160,15 @@
             panel2.Size = new Size(0, 0);
             panel2.TabIndex = 0;
             // 
+            // panelContainer
+            // 
+            panelContainer.AutoScroll = true;
+            panelContainer.Dock = DockStyle.Fill;
+            panelContainer.Location = new Point(242, 88);
+            panelContainer.Name = "panelContainer";
+            panelContainer.Size = new Size(773, 549);
+            panelContainer.TabIndex = 11;
+            // 
             // Admin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -189,8 +189,6 @@
         }
 
         #endregion
-
-        private Panel panelContainer;
         private Panel pnlTitle;
         private Label lbTitle;
         private Panel panel1;
@@ -199,5 +197,6 @@
         private Button btnMngUser;
         private Panel panelLogo;
         private Panel panel2;
+        private FlowLayoutPanel panelContainer;
     }
 }

@@ -43,8 +43,6 @@
             txtRole = new Label();
             txtStatus = new Label();
             btnStatus = new Button();
-            btnRental = new Button();
-            btnCar = new Button();
             SuspendLayout();
             // 
             // label1
@@ -175,7 +173,7 @@
             // 
             // btnStatus
             // 
-            btnStatus.Location = new Point(204, 258);
+            btnStatus.Location = new Point(97, 291);
             btnStatus.Name = "btnStatus";
             btnStatus.Size = new Size(75, 23);
             btnStatus.TabIndex = 14;
@@ -183,33 +181,11 @@
             btnStatus.UseVisualStyleBackColor = true;
             btnStatus.Click += btnStatus_Click;
             // 
-            // btnRental
-            // 
-            btnRental.Location = new Point(174, 350);
-            btnRental.Name = "btnRental";
-            btnRental.Size = new Size(105, 23);
-            btnRental.TabIndex = 16;
-            btnRental.Text = "View Rental";
-            btnRental.UseVisualStyleBackColor = true;
-            btnRental.Click += btnRental_Click;
-            // 
-            // btnCar
-            // 
-            btnCar.Location = new Point(60, 350);
-            btnCar.Name = "btnCar";
-            btnCar.Size = new Size(75, 23);
-            btnCar.TabIndex = 17;
-            btnCar.Text = "View Car";
-            btnCar.UseVisualStyleBackColor = true;
-            btnCar.Click += btnCar_Click;
-            // 
             // UserDetailForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(351, 406);
-            Controls.Add(btnCar);
-            Controls.Add(btnRental);
+            ClientSize = new Size(217, 344);
             Controls.Add(btnStatus);
             Controls.Add(txtStatus);
             Controls.Add(txtRole);
@@ -248,7 +224,5 @@
         private Label txtRole;
         private Label txtStatus;
         private Button btnStatus;
-        private Button btnRental;
-        private Button btnCar;
     }
 }
