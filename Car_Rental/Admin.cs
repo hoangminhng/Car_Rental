@@ -16,12 +16,16 @@ namespace Car_Rental
         private RentalRepo _rentalRepo;
         private UserRepo _userRepo;
         public int subForm; //1,2,3
+        private List<AdminRentals> itemRentals;
+        private List<AdminCars> itemCars;
+        private List<AdminUsers> itemUsers;
 
 
         public Admin()
         {
             InitializeComponent();
             random = new Random();
+            cbSearchBy.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private Color SelectThemColor()
@@ -125,12 +129,32 @@ namespace Car_Rental
 
         private void btnMngUser_Click(object sender, EventArgs e)
         {
+            cbSearchBy.Items.Clear();
+            cbSearchBy.Items.Add("ID");
+            cbSearchBy.Items.Add("Username");
+            cbSearchBy.Items.Add("Fullname");
+            cbSearchBy.Items.Add("Role");
+            cbSearchBy.Items.Add("Status");
+            cbSearchBy.SelectedIndex = 0;
+
+
             ActiveButton((Control)sender, "MANAGE USER");
             LoadUser();
         }
 
         private void btnMngRental_Click(object sender, EventArgs e)
         {
+            cbSearchBy.Items.Clear();
+
+            cbSearchBy.Items.Add("Rental ID");
+            cbSearchBy.Items.Add("Renter Name");
+            cbSearchBy.Items.Add("Owner Name");
+            cbSearchBy.Items.Add("Model");
+            cbSearchBy.Items.Add("Price");
+            cbSearchBy.Items.Add("Status");
+            cbSearchBy.SelectedIndex = 0;
+
+
             //OpenChildForm(new ManageRentalForm(this), sender);
             ActiveButton((Control)sender, "MANAGE RENTAL");
             LoadRental();
@@ -138,6 +162,19 @@ namespace Car_Rental
 
         private void btnMngCar_Click(object sender, EventArgs e)
         {
+            cbSearchBy.Items.Clear();
+
+            // Populate the cbSearchBy combobox with search options
+            cbSearchBy.Items.Add("Car ID");
+            cbSearchBy.Items.Add("Model");
+            cbSearchBy.Items.Add("Branch Name");
+            cbSearchBy.Items.Add("Type");
+            cbSearchBy.Items.Add("Price");
+            cbSearchBy.Items.Add("Status");
+            cbSearchBy.Items.Add("Owner Name");
+
+            // Set the default selected item
+            cbSearchBy.SelectedIndex = 0;
             ActiveButton((Control)sender, "MANAGE CAR");
             LoadCar();
         }
@@ -145,7 +182,7 @@ namespace Car_Rental
         public void LoadUser() //subform 3
         {
             subForm = 1;
-            List<AdminUsers> itemUsers;
+
             List<AdminUsers> itemUsersFilter;
             _accountRepo = new AccountRepo();
             _userRepo = new UserRepo();
@@ -189,7 +226,7 @@ namespace Car_Rental
         public void LoadCar() //subform 2
         {
             subForm = 2;
-            List<AdminCars> itemCars;
+
             List<AdminCars> itemCarsFilter;
             _carRepo = new CarRepo();
             _brandRepo = new BrandRepo();
@@ -245,7 +282,6 @@ namespace Car_Rental
         public void LoadRental() //subform 3
         {
             subForm = 3;
-            List<AdminRentals> itemRentals;
             List<AdminRentals> itemRentalsFilter;
             _carRepo = new CarRepo();
             _brandRepo = new BrandRepo();
@@ -334,6 +370,122 @@ namespace Car_Rental
         private void Admin_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+            string searchCriteria = txtSearch.Text;
+            string selectedSearchBy = cbSearchBy.SelectedItem.ToString();
+
+            if (subForm == 1)
+            {
+                List<AdminUsers> filteredUsers;
+                switch (selectedSearchBy)
+                {
+                    case "ID":
+                        filteredUsers = itemUsers.Where(u => u.ID.ToString().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Username":
+                        filteredUsers = itemUsers.Where(u => u.Username.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    case "Fullname":
+                        filteredUsers = itemUsers.Where(u => u.Fullname.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    case "Role":
+                        filteredUsers = itemUsers.Where(u => u.Role.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    case "Status":
+                        filteredUsers = itemUsers.Where(u => u.Status.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    default:
+                        filteredUsers = itemUsers; // No filtering if no valid search criteria is selected
+                        break;
+                }
+                panelContainer.Controls.Clear();
+                foreach (var user in filteredUsers)
+                {
+                    panelContainer.Controls.Add(user);
+                }
+            }
+            if (subForm == 2)
+            {
+
+                List<AdminCars> filteredCars;
+                switch (selectedSearchBy)
+                {
+                    case "Car ID":
+                        filteredCars = itemCars.Where(c => c.Car_ID.ToString().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Model":
+                        filteredCars = itemCars.Where(c => c.Model.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    case "Branch Name":
+                        filteredCars = itemCars.Where(c => c.Brandname.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    case "Type":
+                        filteredCars = itemCars.Where(c => c.Type.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    case "Price":
+                        filteredCars = itemCars.Where(c => c.Price.ToString().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Status":
+                        filteredCars = itemCars.Where(c => c.Status.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    case "Owner Name":
+                        filteredCars = itemCars.Where(c => c.OwnerName.ToLower().Contains(searchCriteria.ToLower())).ToList();
+                        break;
+                    default:
+                        filteredCars = itemCars; // No filtering if no valid search criteria is selected
+                        break;
+                }
+                panelContainer.Controls.Clear();
+                foreach (var car in filteredCars)
+                {
+                    panelContainer.Controls.Add(car);
+                }
+
+            }
+
+            if (subForm == 3)
+            {
+
+
+                // Filter the itemRentals list based on the selected search criteria
+                List<AdminRentals> filteredRentals;
+                switch (selectedSearchBy)
+                {
+                    case "Rental ID":
+                        filteredRentals = itemRentals.Where(r => r.RentalId.ToString().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Renter Name":
+                        filteredRentals = itemRentals.Where(r => r.RenterName.ToLower().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Owner Name":
+                        filteredRentals = itemRentals.Where(r => r.OwnerName.ToLower().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Model":
+                        filteredRentals = itemRentals.Where(r => r.Model.ToLower().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Price":
+                        filteredRentals = itemRentals.Where(r => r.Price.ToString().Contains(searchCriteria)).ToList();
+                        break;
+                    case "Status":
+                        filteredRentals = itemRentals.Where(r => r.Status.ToLower().Contains(searchCriteria)).ToList();
+                        break;
+                    default:
+                        filteredRentals = new List<AdminRentals>(); // Empty list if no valid search criteria is selected
+                        break;
+                }
+
+                // Update the panelContainer to display the filtered results
+                panelContainer.Controls.Clear();
+                foreach (var rental in filteredRentals)
+                {
+                    panelContainer.Controls.Add(rental);
+                }
+            }
+
         }
     }
 }

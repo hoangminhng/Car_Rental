@@ -46,18 +46,20 @@
             // 
             // txt_search
             // 
-            txt_search.Location = new Point(312, 100);
+            txt_search.Location = new Point(273, 75);
+            txt_search.Margin = new Padding(3, 2, 3, 2);
             txt_search.Name = "txt_search";
-            txt_search.Size = new Size(378, 27);
+            txt_search.Size = new Size(331, 23);
             txt_search.TabIndex = 6;
             // 
             // combobrand
             // 
             combobrand.DisplayMember = "BrandName";
             combobrand.FormattingEnabled = true;
-            combobrand.Location = new Point(731, 100);
+            combobrand.Location = new Point(640, 75);
+            combobrand.Margin = new Padding(3, 2, 3, 2);
             combobrand.Name = "combobrand";
-            combobrand.Size = new Size(96, 28);
+            combobrand.Size = new Size(84, 23);
             combobrand.TabIndex = 7;
             combobrand.ValueMember = "BrandId";
             // 
@@ -73,16 +75,15 @@
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
             panel1.RightToLeft = RightToLeft.No;
-            panel1.Size = new Size(282, 638);
+            panel1.Size = new Size(247, 478);
             panel1.TabIndex = 4;
             // 
             // btnHome
             // 
             btnHome.BackColor = SystemColors.Highlight;
-            btnHome.Location = new Point(-6, 0);
-            btnHome.Margin = new Padding(3, 4, 3, 4);
+            btnHome.Location = new Point(-5, 0);
             btnHome.Name = "btnHome";
-            btnHome.Size = new Size(285, 80);
+            btnHome.Size = new Size(249, 60);
             btnHome.TabIndex = 5;
             btnHome.Text = "Home";
             btnHome.UseVisualStyleBackColor = false;
@@ -91,10 +92,9 @@
             // btnMngRental
             // 
             btnMngRental.BackColor = SystemColors.ActiveBorder;
-            btnMngRental.Location = new Point(0, 147);
-            btnMngRental.Margin = new Padding(3, 4, 3, 4);
+            btnMngRental.Location = new Point(0, 110);
             btnMngRental.Name = "btnMngRental";
-            btnMngRental.Size = new Size(279, 85);
+            btnMngRental.Size = new Size(244, 64);
             btnMngRental.TabIndex = 4;
             btnMngRental.Text = "History";
             btnMngRental.UseVisualStyleBackColor = false;
@@ -103,10 +103,9 @@
             // btnAccount
             // 
             btnAccount.BackColor = SystemColors.ActiveBorder;
-            btnAccount.Location = new Point(0, 73);
-            btnAccount.Margin = new Padding(3, 4, 3, 4);
+            btnAccount.Location = new Point(0, 55);
             btnAccount.Name = "btnAccount";
-            btnAccount.Size = new Size(279, 80);
+            btnAccount.Size = new Size(244, 60);
             btnAccount.TabIndex = 0;
             btnAccount.Text = "Account";
             btnAccount.UseVisualStyleBackColor = false;
@@ -114,8 +113,7 @@
             // 
             // panel2
             // 
-            panel2.Location = new Point(3, 4);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(0, 0);
             panel2.TabIndex = 0;
@@ -125,9 +123,10 @@
             paneltittle.AutoSize = true;
             paneltittle.BackColor = SystemColors.Highlight;
             paneltittle.Controls.Add(label1);
-            paneltittle.Location = new Point(276, 3);
+            paneltittle.Location = new Point(242, 2);
+            paneltittle.Margin = new Padding(3, 2, 3, 2);
             paneltittle.Name = "paneltittle";
-            paneltittle.Size = new Size(786, 76);
+            paneltittle.Size = new Size(688, 57);
             paneltittle.TabIndex = 0;
             // 
             // label1
@@ -136,27 +135,29 @@
             label1.BackColor = SystemColors.Highlight;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(335, 30);
+            label1.Location = new Point(293, 22);
             label1.Name = "label1";
-            label1.Size = new Size(101, 38);
+            label1.Size = new Size(80, 30);
             label1.TabIndex = 0;
             label1.Text = "HOME";
             // 
             // carlayout
             // 
             carlayout.AutoScroll = true;
-            carlayout.Location = new Point(285, 172);
+            carlayout.Location = new Point(249, 129);
+            carlayout.Margin = new Padding(3, 2, 3, 2);
             carlayout.Name = "carlayout";
-            carlayout.Padding = new Padding(20, 5, 20, 20);
-            carlayout.Size = new Size(777, 466);
+            carlayout.Padding = new Padding(18, 4, 18, 15);
+            carlayout.Size = new Size(680, 350);
             carlayout.TabIndex = 8;
             // 
             // btn_search
             // 
             btn_search.BackColor = SystemColors.ActiveCaption;
-            btn_search.Location = new Point(903, 94);
+            btn_search.Location = new Point(790, 70);
+            btn_search.Margin = new Padding(3, 2, 3, 2);
             btn_search.Name = "btn_search";
-            btn_search.Size = new Size(97, 38);
+            btn_search.Size = new Size(85, 28);
             btn_search.TabIndex = 9;
             btn_search.Text = "Search";
             btn_search.UseVisualStyleBackColor = false;
@@ -165,18 +166,18 @@
             // message
             // 
             message.AutoSize = true;
-            message.Location = new Point(573, 147);
+            message.Location = new Point(501, 110);
             message.Name = "message";
-            message.Size = new Size(183, 20);
+            message.Size = new Size(144, 15);
             message.TabIndex = 10;
             message.Text = "There are any cars to hire !";
             message.Visible = false;
             // 
             // Customer
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1067, 637);
+            ClientSize = new Size(932, 480);
             Controls.Add(message);
             Controls.Add(btn_search);
             Controls.Add(carlayout);
@@ -184,6 +185,7 @@
             Controls.Add(paneltittle);
             Controls.Add(txt_search);
             Controls.Add(panel1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Customer";
             Text = "Customer";
             panel1.ResumeLayout(false);
