@@ -17,9 +17,9 @@ namespace Car_Rental.OwnerForm
         private BrandRepo brand;
         private CarRepo car;
         private int accountID;
-        private OwnerCarList ownerCarList;
-
-        public OwnerCarManagement(int accountID, OwnerCarList parentForm)
+        private Owner ownerCarList;
+        private string pathName;
+        public OwnerCarManagement(int accountID, Owner parentForm)
         {
             InitializeComponent();
             brand = new BrandRepo();
@@ -29,13 +29,21 @@ namespace Car_Rental.OwnerForm
             cbBrand.DataSource = listBrand;
             this.accountID = accountID;
             ownerCarList = parentForm;
+            car = new CarRepo();
+            List<Car> listCar = car.getAll();
+            int id = 0;
+            foreach (Car item in listCar)
+            {
+                id = item.CarId;
+            }
+            id += 1;
+            pathName = id.ToString();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
-        {
-            car = new CarRepo();
+        {            
             string location = "C:\\Coding\\Car_Rental\\img";
-            string path = Path.Combine(location, txtModel.Text + ".jpg");
+            string path = Path.Combine(location, pathName + ".jpg").Trim();
             Car newCar = new Car
             {
                 Model = txtModel.Text,
@@ -52,12 +60,13 @@ namespace Car_Rental.OwnerForm
                 Status = 0
             };
             bool created = car.Create(newCar);
+            pathName = txtModel.Text;
             if (created)
             {
                 MessageBox.Show("Added", "Success", MessageBoxButtons.OK);
                 if (ownerCarList != null)
                 {
-                    ownerCarList.LoadList(accountID);
+                    ownerCarList.LoadCar();
                     this.Close();
                 }
             }
@@ -80,7 +89,9 @@ namespace Car_Rental.OwnerForm
 
                     // Save the selected image to the desired folder
                     string destinationFolder = "C:\\Coding\\Car_Rental\\img";
-                    string destinationPath = Path.Combine(destinationFolder, txtModel.Text + Path.GetExtension(openFileDialog.FileName));
+                    string fileName = Path.GetFileName(openFileDialog.FileName);                    
+                    string path = Path.Combine(destinationFolder, pathName + Path.GetExtension(openFileDialog.FileName)).Trim();
+                    string destinationPath = Path.Combine(destinationFolder, pathName + Path.GetExtension(openFileDialog.FileName));
 
                     File.Copy(openFileDialog.FileName, destinationPath);
                 }

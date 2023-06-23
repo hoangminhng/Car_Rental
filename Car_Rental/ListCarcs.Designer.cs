@@ -103,9 +103,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(138, 202);
             label3.Name = "label3";
-            label3.Size = new Size(78, 20);
+            label3.Size = new Size(59, 20);
             label3.TabIndex = 6;
-            label3.Text = "$/1 month";
+            label3.Text = "$/1 day";
             // 
             // btn_hire
             // 

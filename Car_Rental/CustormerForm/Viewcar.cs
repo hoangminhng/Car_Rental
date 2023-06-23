@@ -18,15 +18,15 @@ namespace Car_Rental.CustormerForm
         CarRepo _car;
         AccountRepo _account;
         BrandRepo _brand;
-        public Viewcar(string id, string acc)
+        public Viewcar(string carID, string idOwner)
         {
             InitializeComponent();
             _rental = new RentalRepo();
             _car = new CarRepo();
             _account = new AccountRepo();
             _brand = new BrandRepo();
-            textBox1.Text = id;
-            textBox2.Text = acc;
+            textBox1.Text = carID;
+            textBox2.Text = idOwner;
             int idrental = Convert.ToInt32(textBox1.Text);
             var data = _car.getAll().Select(c => new
             {
@@ -36,12 +36,13 @@ namespace Car_Rental.CustormerForm
                 c.Fuel,
                 c.Describe,
                 c.Images,
-                Brand = _brand.getAll().FirstOrDefault(b => b.BrandId == c.BrandId).BrandName,
-                Rentalid = _rental.getAll().FirstOrDefault(r => r.CarId == 1).RentalId,
-                Username = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == 1).AccountId).Fullname,
-                Phone = _account.getAll().FirstOrDefault(t => t.AccountId == _rental.getAll().FirstOrDefault(r => r.CarId == 1).AccountId).Phone
+                Brand = _brand.getAll().FirstOrDefault(b => b.BrandId == c.BrandId)?.BrandName,
+                c.CarId,
+                //Rentalid = _rental.getAll().FirstOrDefault(r => r.CarId == c.CarId)?.RentalId,
+                Username = _account.getAll().FirstOrDefault(t => t.AccountId == c.AccountId)?.Fullname,
+                Phone = _account.getAll().FirstOrDefault(t => t.AccountId == c.AccountId)?.Phone
             }).ToList();
-            var information = data.Where(infor => infor.Rentalid == idrental);
+            var information = data.Where(infor => infor.CarId == idrental);
             foreach (var item in information)
             {
                 txt_name.Text = item.Model;
@@ -64,10 +65,10 @@ namespace Car_Rental.CustormerForm
 
         private void btn_rental_Click(object sender, EventArgs e)
         {
-            string id = textBox1.Text;
-            String acc = textBox2.Text;
+            string CarID = textBox1.Text;
+            String idOwner = textBox2.Text;
             string price = txt_price.Text;
-            new CustormerForm.HireCar(id, acc, price).ShowDialog();
+            new CustormerForm.HireCar(CarID, idOwner, price).ShowDialog();
         }
     }
 }

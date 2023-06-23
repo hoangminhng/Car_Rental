@@ -28,42 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pnlTitle = new Panel();
-            lbTitle = new Label();
             panel1 = new Panel();
+            btnSignOut = new Button();
             btnMngCar = new Button();
             btnRequest = new Button();
             btnMngAccount = new Button();
             panelLogo = new Panel();
             panel2 = new Panel();
-            panelContainer = new Panel();
-            btnSignOut = new Button();
-            pnlTitle.SuspendLayout();
+            lbTitle = new Label();
+            pnlTitle = new Panel();
+            panelContainer = new FlowLayoutPanel();
             panel1.SuspendLayout();
+            pnlTitle.SuspendLayout();
             SuspendLayout();
-            // 
-            // pnlTitle
-            // 
-            pnlTitle.BackColor = Color.FromArgb(0, 150, 136);
-            pnlTitle.Controls.Add(lbTitle);
-            pnlTitle.Dock = DockStyle.Top;
-            pnlTitle.Location = new Point(242, 0);
-            pnlTitle.Margin = new Padding(3, 4, 3, 4);
-            pnlTitle.Name = "pnlTitle";
-            pnlTitle.Size = new Size(773, 88);
-            pnlTitle.TabIndex = 7;
-            // 
-            // lbTitle
-            // 
-            lbTitle.Anchor = AnchorStyles.None;
-            lbTitle.AutoSize = true;
-            lbTitle.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            lbTitle.ForeColor = Color.White;
-            lbTitle.Location = new Point(369, 27);
-            lbTitle.Name = "lbTitle";
-            lbTitle.Size = new Size(87, 35);
-            lbTitle.TabIndex = 0;
-            lbTitle.Text = "HOME";
             // 
             // panel1
             // 
@@ -81,6 +58,25 @@
             panel1.RightToLeft = RightToLeft.No;
             panel1.Size = new Size(242, 637);
             panel1.TabIndex = 6;
+            // 
+            // btnSignOut
+            // 
+            btnSignOut.BackColor = Color.FromArgb(51, 51, 76);
+            btnSignOut.Dock = DockStyle.Bottom;
+            btnSignOut.FlatAppearance.BorderSize = 0;
+            btnSignOut.FlatStyle = FlatStyle.Flat;
+            btnSignOut.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSignOut.ForeColor = Color.Gainsboro;
+            btnSignOut.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSignOut.Location = new Point(0, 557);
+            btnSignOut.Margin = new Padding(3, 4, 3, 4);
+            btnSignOut.Name = "btnSignOut";
+            btnSignOut.Size = new Size(242, 80);
+            btnSignOut.TabIndex = 6;
+            btnSignOut.Text = "Sign Out";
+            btnSignOut.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnSignOut.UseVisualStyleBackColor = false;
+            btnSignOut.Click += btnSignOut_Click;
             // 
             // btnMngCar
             // 
@@ -161,62 +157,65 @@
             panel2.Size = new Size(0, 0);
             panel2.TabIndex = 0;
             // 
+            // lbTitle
+            // 
+            lbTitle.Anchor = AnchorStyles.None;
+            lbTitle.AutoSize = true;
+            lbTitle.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            lbTitle.ForeColor = Color.White;
+            lbTitle.Location = new Point(395, 27);
+            lbTitle.Name = "lbTitle";
+            lbTitle.Size = new Size(87, 35);
+            lbTitle.TabIndex = 0;
+            lbTitle.Text = "HOME";
+            // 
+            // pnlTitle
+            // 
+            pnlTitle.BackColor = Color.FromArgb(0, 150, 136);
+            pnlTitle.Controls.Add(lbTitle);
+            pnlTitle.Dock = DockStyle.Top;
+            pnlTitle.Location = new Point(242, 0);
+            pnlTitle.Margin = new Padding(3, 4, 3, 4);
+            pnlTitle.Name = "pnlTitle";
+            pnlTitle.Size = new Size(825, 88);
+            pnlTitle.TabIndex = 7;
+            // 
             // panelContainer
             // 
+            panelContainer.AutoScroll = true;
             panelContainer.Dock = DockStyle.Fill;
             panelContainer.Location = new Point(242, 88);
-            panelContainer.Margin = new Padding(3, 4, 3, 4);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(773, 549);
+            panelContainer.Size = new Size(825, 549);
             panelContainer.TabIndex = 8;
-            // 
-            // btnSignOut
-            // 
-            btnSignOut.BackColor = Color.FromArgb(51, 51, 76);
-            btnSignOut.Dock = DockStyle.Bottom;
-            btnSignOut.FlatAppearance.BorderSize = 0;
-            btnSignOut.FlatStyle = FlatStyle.Flat;
-            btnSignOut.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            btnSignOut.ForeColor = Color.Gainsboro;
-            btnSignOut.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSignOut.Location = new Point(0, 557);
-            btnSignOut.Margin = new Padding(3, 4, 3, 4);
-            btnSignOut.Name = "btnSignOut";
-            btnSignOut.Size = new Size(242, 80);
-            btnSignOut.TabIndex = 6;
-            btnSignOut.Text = "Sign Out";
-            btnSignOut.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btnSignOut.UseVisualStyleBackColor = false;
-            btnSignOut.Click += btnSignOut_Click;
             // 
             // Owner
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1015, 637);
+            ClientSize = new Size(1067, 637);
             Controls.Add(panelContainer);
             Controls.Add(pnlTitle);
             Controls.Add(panel1);
             Name = "Owner";
             Text = "Owner";
             Load += Owner_Load;
+            panel1.ResumeLayout(false);
             pnlTitle.ResumeLayout(false);
             pnlTitle.PerformLayout();
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel pnlTitle;
         private Panel panel1;
         private Panel panel2;
-        private Label lbTitle;
-        private Panel panelContainer;
         private Panel panelLogo;
         private Button btnMngCar;
         private Button btnRequest;
         private Button btnMngAccount;
         private Button btnSignOut;
+        private Label lbTitle;
+        private Panel pnlTitle;
+        private FlowLayoutPanel panelContainer;
     }
 }

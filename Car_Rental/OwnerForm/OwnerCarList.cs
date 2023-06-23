@@ -96,8 +96,8 @@ namespace Car_Rental.OwnerForm
 
         private void btnAddNewCar_Click(object sender, EventArgs e)
         {
-            Form addCar = new OwnerCarManagement(accountId, this);
-            addCar.Show();
+            //Form addCar = new OwnerCarManagement(accountId, this);
+            //addCar.Show();
         }
 
     }

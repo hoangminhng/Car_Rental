@@ -66,7 +66,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = SystemColors.HotTrack;
-            label1.Location = new Point(252, 23);
+            label1.Location = new Point(251, 23);
             label1.Name = "label1";
             label1.Size = new Size(322, 38);
             label1.TabIndex = 1;
@@ -120,7 +120,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(23, 302);
+            label8.Location = new Point(23, 301);
             label8.Name = "label8";
             label8.Size = new Size(85, 20);
             label8.TabIndex = 8;
@@ -129,7 +129,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(24, 386);
+            label9.Location = new Point(24, 387);
             label9.Name = "label9";
             label9.Size = new Size(92, 20);
             label9.TabIndex = 9;
@@ -139,7 +139,8 @@
             // 
             img.Location = new Point(539, 89);
             img.Name = "img";
-            img.Size = new Size(204, 192);
+            img.Size = new Size(178, 144);
+            img.SizeMode = PictureBoxSizeMode.AutoSize;
             img.TabIndex = 10;
             img.TabStop = false;
             // 
@@ -186,7 +187,7 @@
             // text_fuel
             // 
             text_fuel.AutoSize = true;
-            text_fuel.Location = new Point(157, 302);
+            text_fuel.Location = new Point(157, 301);
             text_fuel.Name = "text_fuel";
             text_fuel.Size = new Size(0, 20);
             text_fuel.TabIndex = 17;
@@ -194,7 +195,7 @@
             // txt_description
             // 
             txt_description.AutoSize = true;
-            txt_description.Location = new Point(157, 386);
+            txt_description.Location = new Point(157, 387);
             txt_description.Name = "txt_description";
             txt_description.Size = new Size(0, 20);
             txt_description.TabIndex = 18;
@@ -220,7 +221,7 @@
             // 
             btn_rental.BackColor = SystemColors.Highlight;
             btn_rental.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btn_rental.Location = new Point(572, 318);
+            btn_rental.Location = new Point(571, 317);
             btn_rental.Name = "btn_rental";
             btn_rental.Size = new Size(123, 47);
             btn_rental.TabIndex = 21;
@@ -230,7 +231,7 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(652, 23);
+            textBox2.Location = new Point(651, 23);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(59, 27);
             textBox2.TabIndex = 22;

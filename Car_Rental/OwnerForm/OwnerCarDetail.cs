@@ -24,7 +24,7 @@ namespace Car_Rental.OwnerForm
         private RentalRepo _rentalRepo;
         private Car _car;
         private Brand _brand;
-        private Account _account;
+        private AccountOwner _account;
 
         private OwnerCarList ownerCarList;
         public OwnerCarDetail()
@@ -88,7 +88,7 @@ namespace Car_Rental.OwnerForm
             rtbDes.Text = _car.Describe.ToString();
 
             _accountRepo = new AccountRepo();
-            _account = _accountRepo.getAll().Where(p => p.AccountId == _car.AccountId).FirstOrDefault();
+            //_account = _accountRepo.getAll().Where(p => p.AccountId == _car.AccountId).FirstOrDefault();
 
             return _car;
         }

@@ -106,17 +106,17 @@ namespace Car_Rental
         }
         private void btn_hire_Click(object sender, EventArgs e)
         {
-            string id = textBox1.Text;
+            string CarID = textBox1.Text;
             String acc = textBox2.Text;
             string price = txt_price.Text;
-            new CustormerForm.HireCar(id, acc, price).ShowDialog();
+            new CustormerForm.HireCar(CarID, acc, price).ShowDialog();
         }
 
         private void btn_view_Click(object sender, EventArgs e)
         {
-            string id = textBox1.Text;
-            String acc = textBox2.Text;
-            new CustormerForm.Viewcar(id, acc).ShowDialog();
+            string carID = textBox1.Text;
+            String idOwner = textBox2.Text;
+            new CustormerForm.Viewcar(carID, idOwner).ShowDialog();
         }
     }
 }
