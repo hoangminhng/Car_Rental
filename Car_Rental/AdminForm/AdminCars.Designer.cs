@@ -1,6 +1,6 @@
 ﻿namespace Car_Rental
 {
-    partial class OwnerCars
+    partial class AdminCars
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            imgCar = new PictureBox();
+            txtType = new Label();
             labelModel = new Label();
             labelBrand = new Label();
             labelPrice = new Label();
@@ -38,166 +38,193 @@
             txtPrice = new Label();
             txtStatus = new Label();
             label2 = new Label();
-            button1 = new Button();
             txtCarID = new TextBox();
-            button2 = new Button();
+            btnViewOwner = new Button();
             labelType = new Label();
-            txtType = new Label();
+            imgCar = new PictureBox();
+            label1 = new Label();
+            txtOwnerName = new Label();
+            btnCarDetail = new Button();
             ((System.ComponentModel.ISupportInitialize)imgCar).BeginInit();
             SuspendLayout();
             // 
-            // imgCar
+            // txtType
             // 
-            imgCar.Dock = DockStyle.Top;
-            imgCar.Location = new Point(0, 0);
-            imgCar.Name = "imgCar";
-            imgCar.Size = new Size(244, 146);
-            imgCar.SizeMode = PictureBoxSizeMode.Zoom;
-            imgCar.TabIndex = 0;
-            imgCar.TabStop = false;
+            txtType.AutoSize = true;
+            txtType.Location = new Point(53, 175);
+            txtType.Name = "txtType";
+            txtType.Size = new Size(30, 15);
+            txtType.TabIndex = 29;
+            txtType.Text = "type";
             // 
             // labelModel
             // 
             labelModel.AutoSize = true;
             labelModel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelModel.Location = new Point(3, 149);
+            labelModel.Location = new Point(2, 124);
             labelModel.Name = "labelModel";
-            labelModel.Size = new Size(53, 20);
-            labelModel.TabIndex = 1;
+            labelModel.Size = new Size(42, 15);
+            labelModel.TabIndex = 16;
             labelModel.Text = "Model";
             // 
             // labelBrand
             // 
             labelBrand.AutoSize = true;
             labelBrand.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelBrand.Location = new Point(3, 180);
+            labelBrand.Location = new Point(2, 147);
             labelBrand.Name = "labelBrand";
-            labelBrand.Size = new Size(51, 20);
-            labelBrand.TabIndex = 2;
+            labelBrand.Size = new Size(40, 15);
+            labelBrand.TabIndex = 17;
             labelBrand.Text = "Brand";
             // 
             // labelPrice
             // 
             labelPrice.AutoSize = true;
             labelPrice.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelPrice.Location = new Point(0, 247);
+            labelPrice.Location = new Point(8, 197);
             labelPrice.Name = "labelPrice";
-            labelPrice.Size = new Size(43, 20);
-            labelPrice.TabIndex = 3;
+            labelPrice.Size = new Size(35, 15);
+            labelPrice.TabIndex = 18;
             labelPrice.Text = "Price";
             // 
             // labelStatus
             // 
             labelStatus.AutoSize = true;
             labelStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelStatus.Location = new Point(0, 281);
+            labelStatus.Location = new Point(-1, 223);
             labelStatus.Name = "labelStatus";
-            labelStatus.Size = new Size(53, 20);
-            labelStatus.TabIndex = 4;
+            labelStatus.Size = new Size(42, 15);
+            labelStatus.TabIndex = 19;
             labelStatus.Text = "Status";
             // 
             // txtModel
             // 
             txtModel.AutoSize = true;
-            txtModel.Location = new Point(62, 149);
+            txtModel.Location = new Point(53, 124);
             txtModel.Name = "txtModel";
-            txtModel.Size = new Size(46, 20);
-            txtModel.TabIndex = 5;
+            txtModel.Size = new Size(37, 15);
+            txtModel.TabIndex = 20;
             txtModel.Text = "name";
             // 
             // txtBrand
             // 
             txtBrand.AutoSize = true;
-            txtBrand.Location = new Point(62, 180);
+            txtBrand.Location = new Point(53, 147);
             txtBrand.Name = "txtBrand";
-            txtBrand.Size = new Size(48, 20);
-            txtBrand.TabIndex = 6;
+            txtBrand.Size = new Size(38, 15);
+            txtBrand.TabIndex = 21;
             txtBrand.Text = "brand";
             // 
             // txtPrice
             // 
             txtPrice.AutoSize = true;
-            txtPrice.Location = new Point(59, 247);
+            txtPrice.Location = new Point(51, 197);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(42, 20);
-            txtPrice.TabIndex = 7;
+            txtPrice.Size = new Size(33, 15);
+            txtPrice.TabIndex = 22;
             txtPrice.Text = "price";
             // 
             // txtStatus
             // 
             txtStatus.AutoSize = true;
-            txtStatus.Location = new Point(59, 281);
+            txtStatus.Location = new Point(51, 223);
             txtStatus.Name = "txtStatus";
-            txtStatus.Size = new Size(47, 20);
-            txtStatus.TabIndex = 8;
+            txtStatus.Size = new Size(38, 15);
+            txtStatus.TabIndex = 23;
             txtStatus.Text = "status";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(107, 247);
+            label2.Location = new Point(93, 197);
             label2.Name = "label2";
-            label2.Size = new Size(39, 20);
-            label2.TabIndex = 9;
+            label2.Size = new Size(31, 15);
+            label2.TabIndex = 24;
             label2.Text = "/day";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(3, 310);
-            button1.Name = "button1";
-            button1.Size = new Size(107, 39);
-            button1.TabIndex = 10;
-            button1.Text = "Delete";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // txtCarID
             // 
-            txtCarID.Location = new Point(147, 146);
+            txtCarID.Location = new Point(128, 122);
+            txtCarID.Margin = new Padding(3, 2, 3, 2);
             txtCarID.Name = "txtCarID";
-            txtCarID.Size = new Size(97, 27);
-            txtCarID.TabIndex = 11;
+            txtCarID.Size = new Size(85, 23);
+            txtCarID.TabIndex = 26;
             txtCarID.Visible = false;
             // 
-            // button2
+            // btnViewOwner
             // 
-            button2.Location = new Point(134, 310);
-            button2.Name = "button2";
-            button2.Size = new Size(107, 39);
-            button2.TabIndex = 12;
-            button2.Text = "Update";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            btnViewOwner.Location = new Point(0, 271);
+            btnViewOwner.Margin = new Padding(3, 2, 3, 2);
+            btnViewOwner.Name = "btnViewOwner";
+            btnViewOwner.Size = new Size(94, 29);
+            btnViewOwner.TabIndex = 27;
+            btnViewOwner.Text = "View Owner";
+            btnViewOwner.UseVisualStyleBackColor = true;
+            btnViewOwner.Click += btnViewOwner_Click;
             // 
             // labelType
             // 
             labelType.AutoSize = true;
             labelType.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelType.Location = new Point(3, 217);
+            labelType.Location = new Point(9, 175);
             labelType.Name = "labelType";
-            labelType.Size = new Size(42, 20);
-            labelType.TabIndex = 13;
+            labelType.Size = new Size(33, 15);
+            labelType.TabIndex = 28;
             labelType.Text = "Type";
             // 
-            // txtType
+            // imgCar
             // 
-            txtType.AutoSize = true;
-            txtType.Location = new Point(62, 217);
-            txtType.Name = "txtType";
-            txtType.Size = new Size(38, 20);
-            txtType.TabIndex = 14;
-            txtType.Text = "type";
+            imgCar.Dock = DockStyle.Top;
+            imgCar.Location = new Point(0, 0);
+            imgCar.Margin = new Padding(3, 2, 3, 2);
+            imgCar.Name = "imgCar";
+            imgCar.Size = new Size(227, 110);
+            imgCar.SizeMode = PictureBoxSizeMode.Zoom;
+            imgCar.TabIndex = 15;
+            imgCar.TabStop = false;
             // 
-            // OwnerCars
+            // label1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(-1, 244);
+            label1.Name = "label1";
+            label1.Size = new Size(66, 15);
+            label1.TabIndex = 30;
+            label1.Text = "Car Owner";
+            // 
+            // txtOwnerName
+            // 
+            txtOwnerName.AutoSize = true;
+            txtOwnerName.Location = new Point(71, 244);
+            txtOwnerName.Name = "txtOwnerName";
+            txtOwnerName.Size = new Size(38, 15);
+            txtOwnerName.TabIndex = 31;
+            txtOwnerName.Text = "status";
+            // 
+            // btnCarDetail
+            // 
+            btnCarDetail.Location = new Point(133, 271);
+            btnCarDetail.Margin = new Padding(3, 2, 3, 2);
+            btnCarDetail.Name = "btnCarDetail";
+            btnCarDetail.Size = new Size(94, 29);
+            btnCarDetail.TabIndex = 32;
+            btnCarDetail.Text = "View Car Detail";
+            btnCarDetail.UseVisualStyleBackColor = true;
+            btnCarDetail.Click += btnCarDetail_Click;
+            // 
+            // AdminCars
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ButtonShadow;
+            BackColor = SystemColors.ControlDark;
+            Controls.Add(btnCarDetail);
+            Controls.Add(txtOwnerName);
+            Controls.Add(label1);
             Controls.Add(txtType);
             Controls.Add(labelType);
-            Controls.Add(button2);
+            Controls.Add(btnViewOwner);
             Controls.Add(txtCarID);
-            Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(txtStatus);
             Controls.Add(txtPrice);
@@ -208,8 +235,9 @@
             Controls.Add(labelBrand);
             Controls.Add(labelModel);
             Controls.Add(imgCar);
-            Name = "OwnerCars";
-            Size = new Size(244, 352);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "AdminCars";
+            Size = new Size(227, 311);
             ((System.ComponentModel.ISupportInitialize)imgCar).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -217,7 +245,7 @@
 
         #endregion
 
-        private PictureBox imgCar;
+        private Label txtType;
         private Label labelModel;
         private Label labelBrand;
         private Label labelPrice;
@@ -227,10 +255,12 @@
         private Label txtPrice;
         private Label txtStatus;
         private Label label2;
-        private Button button1;
         private TextBox txtCarID;
-        private Button button2;
+        private Button btnViewOwner;
         private Label labelType;
-        private Label txtType;
+        private PictureBox imgCar;
+        private Label label1;
+        private Label txtOwnerName;
+        private Button btnCarDetail;
     }
 }

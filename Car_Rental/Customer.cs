@@ -1,4 +1,5 @@
-﻿using LibraryRepo.Repo;
+﻿using Car_Rental.CustormerForm;
+using LibraryRepo.Repo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,7 @@ namespace Car_Rental
         BrandRepo _brand;
         public List<ListCarcs> itemCars;
         public List<ListCarcs> itemCarsFilter;
+        int acc;
 
         BrandRepo listofBrand = new BrandRepo();
         public Customer(int idaccount)
@@ -35,7 +37,7 @@ namespace Car_Rental
             _rental = new RentalRepo();
             _account = new AccountRepo();
             _user = new UserRepo();
-            int acc = idaccount;
+            acc = idaccount;
             var brand = _brand.getAll();
             combobrand.DataSource = new BindingSource() { DataSource = brand };
             var data = context.getAll().Select(p => new
@@ -130,7 +132,9 @@ namespace Car_Rental
         //quản lý account của mình, CRUD
         private void btnAccount_Click_1(object sender, EventArgs e)
         {
-
+            int accountId = acc;
+            Form ViewAccountDetails = new ViewAccountDetails(accountId, this);
+            ViewAccountDetails.ShowDialog();
         }
         //view các car hiện có thể cho thuê
         private void btnViewCar_Click_1(object sender, EventArgs e)
@@ -140,7 +144,9 @@ namespace Car_Rental
         //dùng để view lịch sử các đơn thuê (success, cancal, on going)
         private void btnMngRental_Click_1(object sender, EventArgs e)
         {
-
+            int accountId = acc;
+            ViewRentalHistory viewRentalHistoryForm = new ViewRentalHistory(accountId);
+            viewRentalHistoryForm.ShowDialog();
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -198,6 +204,13 @@ namespace Car_Rental
                 combobrand.DataSource = new BindingSource() { DataSource = brand };
                 carlayout.Controls.AddRange(list);
             }
+        }
+
+        private void btnChangePwd_Click(object sender, EventArgs e)
+        {
+            int accountId = acc;
+            CustomerChangePassword CustomerChangePasswordForm = new CustomerChangePassword(accountId);
+            CustomerChangePasswordForm.ShowDialog();
         }
     }
 }

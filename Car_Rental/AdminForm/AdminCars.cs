@@ -1,26 +1,21 @@
-﻿using LibraryRepo.Cars;
-using LibraryRepo.Repo;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Car_Rental.AdminForm;
 
 namespace Car_Rental
 {
-    public partial class OwnerCars : UserControl
+    public partial class AdminCars : UserControl
     {
-        private Owner owner;
-        private CarRepo _carRepo;
-        public OwnerCars(Owner owner)
+        private readonly Admin _adminForm;
+        public AdminCars()
         {
             InitializeComponent();
-            this.owner = owner;
         }
+
+        public AdminCars(Admin form)
+        {
+            InitializeComponent();
+            _adminForm = form;
+        }
+
 
         public Task<Image> LoadImageFromFileAsync(string url)
         {
@@ -61,6 +56,7 @@ namespace Car_Rental
             get { return _Model; }
         }
         public string _Img;
+
         public string Img
         {
             set
@@ -78,33 +74,17 @@ namespace Car_Rental
             imgCar.BackgroundImage = image;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnViewOwner_Click(object sender, EventArgs e)
         {
-            Form updateCar = new OwnerForm.OwnerUpdateCar(_CarId, owner);
-            updateCar.ShowDialog();
+            UserDetailForm userDetailForm = new UserDetailForm(OwnerId, _adminForm);
+            userDetailForm.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCarDetail_Click(object sender, EventArgs e)
         {
-            _carRepo = new CarRepo();
-            Car car = getCar(_CarId);
-            DialogResult result = MessageBox.Show("Are you sure want to delete this car?", "Warning", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                bool isDelete = _carRepo.Delete(car);
-                if (isDelete)
-                {
-                    MessageBox.Show("Update car successfully", "Success", MessageBoxButtons.OK);
-                    if (owner != null)
-                    {
-                        owner.LoadCar();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("This car are in rental", "Error", MessageBoxButtons.OK);
-                }
-            }
+            CarDetailForm carDetailForm = new CarDetailForm(_CarId, _adminForm);
+
+            carDetailForm.Show();
         }
 
         public string _BranchName { get; set; }
@@ -148,28 +128,18 @@ namespace Car_Rental
             get { return _Status; }
         }
 
-        public Car getCar(int carID)
+        public string _OwnerName { get; set; }
+        public string OwnerName
         {
-            _carRepo = new CarRepo();
-            var cars = _carRepo.getAll();
-            var car = cars.First(x => x.CarId == carID);
-            Car newCar = new Car()
+            set
             {
-                CarId = car.CarId,
-                Model = car.Model,
-                BrandId = car.BrandId,
-                AccountId = car.AccountId,
-                Type = car.Type,
-                Images = car.Images,
-                Seats = car.Seats,
-                Transmission = car.Transmission,
-                Fuel = car.Fuel,
-                Consumption = car.Consumption,
-                Describe = car.Describe,
-                Price = car.Price,
-                Status = car.Status
-            };
-            return car;
+                _OwnerName = value;
+                txtOwnerName.Text = value;
+            }
+            get { return _OwnerName; }
         }
+
+        public int OwnerId { get; set; }
+
     }
 }

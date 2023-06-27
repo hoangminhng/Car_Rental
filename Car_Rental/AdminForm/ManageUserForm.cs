@@ -47,8 +47,8 @@ namespace Car_Rental.AdminForm
                                 Phone = account.Phone,
                                 Email = account.Email,
                                 Address = account.Address,
-                                Role = _adminUtils.GetUserRole(user.Role),
-                                Status = _adminUtils.GetUserStatus(user.Status)
+                                Role = AdminUtils.GetUserRole(user.Role),
+                                Status = AdminUtils.GetUserStatus(user.Status)
                             }).ToList();
 
 
@@ -101,8 +101,8 @@ namespace Car_Rental.AdminForm
                 if (selectedData != null)
                 {
                     // Open new form and pass the selectedData to it
-                    UserDetailForm detailsForm = new UserDetailForm(accountId, this, adminForm);
-                    detailsForm.Show();
+                    //UserDetailForm detailsForm = new UserDetailForm(accountId, this, adminForm);
+                    //detailsForm.Show();
                 }
             }
         }

@@ -111,7 +111,7 @@
             // 
             btn_hire.BackColor = SystemColors.Highlight;
             btn_hire.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            btn_hire.Location = new Point(10, 239);
+            btn_hire.Location = new Point(3, 239);
             btn_hire.Name = "btn_hire";
             btn_hire.Size = new Size(77, 36);
             btn_hire.TabIndex = 7;

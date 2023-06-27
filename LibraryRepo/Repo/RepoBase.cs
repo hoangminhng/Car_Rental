@@ -52,11 +52,19 @@ namespace LibraryRepo.Repo
                 throw;
             }
         }
-        public void Update(T entity)
+        public bool Update(T entity)
         {
-            var tracker = context.Attach(entity);
-            tracker.State = EntityState.Modified;
-            context.SaveChanges();
+            try
+            {
+                var tracker = context.Attach(entity);
+                tracker.State = EntityState.Modified;
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

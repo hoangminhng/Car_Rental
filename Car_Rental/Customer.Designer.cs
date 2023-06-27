@@ -40,6 +40,7 @@
             carlayout = new FlowLayoutPanel();
             btn_search = new Button();
             message = new Label();
+            btnChangePwd = new Button();
             panel1.SuspendLayout();
             paneltittle.SuspendLayout();
             SuspendLayout();
@@ -65,6 +66,7 @@
             // 
             panel1.AutoSize = true;
             panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.Controls.Add(btnChangePwd);
             panel1.Controls.Add(btnHome);
             panel1.Controls.Add(btnMngRental);
             panel1.Controls.Add(btnAccount);
@@ -172,6 +174,18 @@
             message.Text = "There are any cars to hire !";
             message.Visible = false;
             // 
+            // btnChangePwd
+            // 
+            btnChangePwd.BackColor = SystemColors.ActiveBorder;
+            btnChangePwd.Location = new Point(0, 229);
+            btnChangePwd.Margin = new Padding(3, 4, 3, 4);
+            btnChangePwd.Name = "btnChangePwd";
+            btnChangePwd.Size = new Size(279, 85);
+            btnChangePwd.TabIndex = 7;
+            btnChangePwd.Text = "Change Password";
+            btnChangePwd.UseVisualStyleBackColor = false;
+            btnChangePwd.Click += btnChangePwd_Click;
+            // 
             // Customer
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -208,5 +222,6 @@
         private FlowLayoutPanel carlayout;
         private Button btn_search;
         private Label message;
+        private Button btnChangePwd;
     }
 }

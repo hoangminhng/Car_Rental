@@ -16,18 +16,43 @@ namespace Car_Rental.AdminForm
         Account _account;
         DisplayUser _displayUser;
 
-        private Form previousForm;
-        private Admin adminForm;
+        private Admin _adminForm;
+        private int _subForm;
         public UserDetailForm()
         {
             InitializeComponent();
         }
 
-        public UserDetailForm(int accountId, Form previousForm, Admin adminForm)
+        public UserDetailForm(int accountId, Admin adminForm)
         {
             InitializeComponent();
-            this.previousForm = previousForm;
-            this.adminForm = adminForm;
+            _adminForm = adminForm;
+            _subForm = _adminForm.subForm;
+
+            AccountId = accountId;
+            _user = LoadDetail(accountId);
+
+            switch (_user.Role)
+            {
+                case 0:
+                    LoadAdmin();
+                    break;
+                case 1:
+                    LoadRenter();
+                    break;
+                case 2:
+                    LoadLessee();
+                    break;
+
+            }
+
+
+
+        }
+
+        public UserDetailForm(int accountId)
+        {
+            InitializeComponent();
 
             AccountId = accountId;
             _user = LoadDetail(accountId);
@@ -69,8 +94,8 @@ namespace Car_Rental.AdminForm
                 Phone = _account.Phone,
                 Email = _account.Email,
                 Address = _account.Address,
-                Role = _adminUtils.GetUserRole(_user.Role),
-                Status = _adminUtils.GetUserStatus(_user.Status)
+                Role = AdminUtils.GetUserRole(_user.Role),
+                Status = AdminUtils.GetUserStatus(_user.Status)
             };
 
             txtAccountId.Text = _displayUser.AccountId.ToString();
@@ -98,30 +123,18 @@ namespace Car_Rental.AdminForm
 
         public void LoadAdmin()
         {
-            btnCar.Enabled = false;
-            btnCar.Visible = false;
-            btnRental.Enabled = false;
-            btnRental.Visible = false;
             btnStatus.Enabled = false;
             btnStatus.Visible = false;
         }
 
         public void LoadLessee()
         {
-            btnCar.Enabled = true;
-            btnCar.Visible = true;
-            btnRental.Enabled = false;
-            btnRental.Visible = false;
             btnStatus.Enabled = true;
             btnStatus.Visible = true;
         }
 
         public void LoadRenter()
         {
-            btnCar.Enabled = false;
-            btnCar.Visible = false;
-            btnRental.Enabled = true;
-            btnRental.Visible = true;
             btnStatus.Enabled = true;
             btnStatus.Visible = true;
         }
@@ -151,29 +164,18 @@ namespace Car_Rental.AdminForm
         private void UserDetailForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Hide();
-            if (previousForm is ManageUserForm manageUserForm)
+            switch (_subForm)
             {
-                manageUserForm.LoadList();
-
+                case 1:
+                    _adminForm.LoadUser();
+                    break;
+                case 2:
+                    _adminForm.LoadCar();
+                    break;
+                case 3:
+                    _adminForm.LoadRental();
+                    break;
             }
-        }
-
-        private void btnRental_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            ManageRentalForm manageRentalForm = new ManageRentalForm();
-            manageRentalForm.LoadList();
-            adminForm.OpenChildFormFromOutside(manageRentalForm);
-            manageRentalForm.loadRentalByAccountId(AccountId.ToString());
-        }
-
-        private void btnCar_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            ManageCarForm manageCarForm = new ManageCarForm();
-            manageCarForm.LoadList();
-            adminForm.OpenChildFormFromOutside(manageCarForm);
-            manageCarForm.loadCarByAccountId(AccountId.ToString());
         }
     }
 }

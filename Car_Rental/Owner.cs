@@ -100,7 +100,6 @@ namespace Car_Rental
         }
         private void Owner_Load(object sender, EventArgs e)
         {
-
         }
         //CRUD thông tin cá nhân
         private void btnMngAccount_Click(object sender, EventArgs e)
@@ -131,7 +130,7 @@ namespace Car_Rental
             var _listDisplay = (from car in _listCar
                                 where car.AccountId == accoundId
                                 join branch in _listBrand on car.BrandId equals branch.BrandId
-                                select new OwnerCars
+                                select new OwnerCars(this)
                                 {
                                     Car_ID = car.CarId,
                                     Model = car.Model,
@@ -150,7 +149,7 @@ namespace Car_Rental
             List<OwnerCars> carLabels = new List<OwnerCars>(); // Create a list to hold the Label controls
             foreach (var item in _listDisplay)
             {
-                var ownerCar = new OwnerCars();
+                var ownerCar = new OwnerCars(this);
                 ownerCar.Img = item.Img;
                 ownerCar.Car_ID = item.Car_ID;
                 ownerCar.Model = item.Model;
