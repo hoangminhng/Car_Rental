@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Car_Rental.OwnerForm
 {
-    public partial class OwnerCarManagement : Form
+    public partial class  OwnerCarManagement : Form
     {
         private BrandRepo brand;
         private CarRepo car;

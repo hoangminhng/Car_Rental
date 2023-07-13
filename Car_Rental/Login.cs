@@ -24,8 +24,8 @@ namespace Car_Rental
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 if (String.IsNullOrEmpty(txtPassword.Text) && String.IsNullOrEmpty(txtUsername.Text))
                 {
                     MessageBox.Show("Username and password can not empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -35,7 +35,8 @@ namespace Car_Rental
                     var users = userRepo.getAll();
                     var user = users.First(x => x.Username == txtUsername.Text);
                     accoundId = user.AccountId;
-                    if (txtPassword.Text == user.Password)
+                    if (txtPassword.Text == user.Password &&
+                        txtUsername.Text == user.Username)
                     {
                         if (user.Role == 0)
                         {
@@ -63,11 +64,11 @@ namespace Car_Rental
                         MessageBox.Show("Incorrect password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            //}
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("User not exist in system", "Error", MessageBoxButtons.OK);
-            //}
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("User not exist in system", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LibraryRepo.Cars;
+using LibraryRepo.Repo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,13 @@ namespace Car_Rental.OwnerForm
 {
     public partial class RentalRequest : UserControl
     {
-        public RentalRequest()
+        private UserRepo _userRepo;
+        private RentalRepo _rentalRepo;
+        private Owner owner;
+        public RentalRequest(Owner owner)
         {
             InitializeComponent();
+            this.owner = owner;
         }
 
         private void RentalRequest_Load(object sender, EventArgs e)
@@ -24,18 +30,48 @@ namespace Car_Rental.OwnerForm
 
         private void txtName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show(_Customer_ID.ToString(), "noti", MessageBoxButtons.OK);
+
         }
         public string _Img;
 
         private void btnApprove_Click(object sender, EventArgs e)
         {
-
+            _rentalRepo = new RentalRepo();
+            Rental rental = _rentalRepo.getAll().Where(x => x.RentalId == Convert.ToInt32(txtRentalID.Text)).FirstOrDefault();
+            rental.Status = 1;
+            bool isUpdate = _rentalRepo.Update(rental);
+            if (isUpdate)
+            {
+                DialogResult result = MessageBox.Show("Approve success", "Notification", MessageBoxButtons.OK);
+                if (owner != null)
+                {
+                    owner.LoadRequest();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fail to approve", "Notification", MessageBoxButtons.OK);
+            }
         }
 
         private void btnReject_Click(object sender, EventArgs e)
         {
-
+            _rentalRepo = new RentalRepo();
+            Rental rental = _rentalRepo.getAll().Where(x => x.RentalId == Convert.ToInt32(txtRentalID.Text)).FirstOrDefault();
+            rental.Status = 3;
+            bool isUpdate = _rentalRepo.Update(rental);
+            if (isUpdate)
+            {
+                DialogResult result = MessageBox.Show("Reject success", "Notification", MessageBoxButtons.OK);
+                if (owner != null)
+                {
+                    owner.LoadRequest();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fail to reject", "Notification", MessageBoxButtons.OK);
+            }
         }
 
         public string Img
@@ -66,9 +102,14 @@ namespace Car_Rental.OwnerForm
         {
             set
             {
+                _userRepo = new UserRepo();
                 this._Customer_ID = value;
                 txtCustomer_ID.Text = value.ToString();
+                var userList = _userRepo.getAll();
+                User customer = userList.FirstOrDefault(x => x.AccountId == _Customer_ID);
+                txtName.Text = customer.Username;
             }
+
             get { return _Customer_ID; }
         }
 

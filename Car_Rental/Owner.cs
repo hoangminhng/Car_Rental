@@ -167,7 +167,7 @@ namespace Car_Rental
             panelContainer.Controls.Add(addNewCar);
         }
 
-        private void LoadRequest()
+        public void LoadRequest()
         {
             List<RentalRequest> itemCars;
             List<RentalRequest> itemCarsFilter;
@@ -183,8 +183,9 @@ namespace Car_Rental
             var _listDisplay = (from car in cars
                                 where car.AccountId == accoundId
                                 join rental in rentals on car.CarId equals rental.CarId
+                                where rental.Status == 2
                                 join rentalDetail in rentalDetails on rental.RentalId equals rentalDetail.RentalDetailId
-                                select new RentalRequest
+                                select new RentalRequest(this)
                                 {
                                     Img = car.Images,
                                     Rentail_ID = rental.RentalId,
@@ -207,7 +208,7 @@ namespace Car_Rental
             List<RentalRequest> requestLabels = new List<RentalRequest>(); // Create a list to hold the Label controls
             foreach (var items in _listDisplay)
             {
-                var request = new RentalRequest();
+                var request = new RentalRequest(this);
                 request.Img = items.Img;
                 request.Rentail_ID = items.Rentail_ID;
                 request.Customer_ID = items.Customer_ID;
