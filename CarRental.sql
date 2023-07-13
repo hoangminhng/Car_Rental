@@ -48,7 +48,7 @@ CREATE TABLE Rental
 	Rental_ID int IDENTITY(1,1) PRIMARY KEY,
 	Account_ID int FOREIGN KEY REFERENCES Account(Account_ID),
 	Car_ID int FOREIGN KEY REFERENCES Car(Car_ID),
-	Status int check(Status = 0 or Status = 1 or Status = 2) -- 0:rented; 1: renting; 2: ready to rent
+	Status int check(Status = 0 or Status = 1 or Status = 2 or Status = 3) -- 0:rented; 1: renting; 2: ready to rent; 3: rejected
 )
 
 CREATE TABLE RentalDetail
